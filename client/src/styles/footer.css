@@ -1,0 +1,56 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    background: #007BFF; /* Medical-themed blue */
+    text-align: center;
+    font-family: sans-serif;
+    color: white; /* White text */
+    width: 100%;
+  }
+  .footer-content {
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Center align items */
+    padding: 1rem;
+  }
+  
+  .footer__section {
+    width: 45%; /* Adjust width for sections */
+  }
+  
+  .container_1 {
+    width: 100%; /* Full width */
+  }
+  
+  .container_1 ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+  }
+  
+  .container_1 ul a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .container_1 ul a:hover {
+    color: #FFF; /* Lighten color on hover */
+  }
+  
+  .footer__heading {
+    font-size: 1.3rem;
+    margin: .5rem;
+  }
+  
+  .footer__copyright {
+    background-color: #0056b3; /* Darker blue for copyright section */
+    padding: 1rem;
+  }
+  
+  .icons-list {
+    font-size: 2rem; /* Increase icon size */
+    display: flex;
+    justify-content: center; /* Center align icons */
+  }
+  
+  

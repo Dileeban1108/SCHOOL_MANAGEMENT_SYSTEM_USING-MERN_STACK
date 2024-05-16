@@ -1,0 +1,136 @@
+.home-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  width: 80%;
+  gap: 2.94rem;
+  font-family: sans-serif;
+}
+
+.hospital-box,
+.view-more {
+  width: 250px;
+  height: 250px;
+  background-color: #fff; /* White background */
+  color: #333; /* Dark text */
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+  cursor: pointer; /* Cursor pointer on hover */
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hospital-box:hover {
+  background-color: #f0f0f0; /* Lighter background color on hover */
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar input[type="text"] {
+  width: 70%;
+  padding: 15px;
+  border-radius: 20px 0 0 20px;
+  border: none;
+  outline: none;
+  background-color: #f0f0f0;
+}
+
+.search-bar button {
+  padding: 15px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.main-home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding:90px 0 3rem 0;
+  gap: 2rem;
+  background-color: #fffafa;
+  background: url('../assets/back2.png') no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.empty {
+  background: url("../assets/back.jpg") no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 50vh;
+  width: 100%;
+}
+.view-more {
+  width: 250px;
+  height: 250px;
+  background-color: #fff; /* White background */
+  color: #333; /* Dark text */
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+  cursor: pointer; /* Cursor pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  position: relative; /* Make position relative for absolute positioning of the icon */
+}
+.view-more:hover {
+  background-color: #f0f0f0; /* Lighter background color on hover */
+}
+.view-more h3 {
+  margin-right: 10px; /* Add spacing between text and icon */
+}
+
+.view-more svg {
+  position: absolute; /* Position the icon absolutely */
+  right: 20px; /* Adjust as needed */
+}
+.hospital-box h3 {
+  color: #717070;
+  padding: 0.4rem;
+}
+.location-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.number {
+  background-color: #00fe1e;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+.text {
+  text-align: center;
+  width: 80%;
+background-color: #1f7cdf;
+}
+.text h1{
+  font-family: sans-serif;
+  font-size: 2.5rem; 
+  color: #fff;
+}

@@ -1,0 +1,145 @@
+.move-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  position: absolute;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.move-button.left {
+  left: 10px;
+}
+
+.move-button.right {
+  right: 10px;
+}
+
+.image-container {
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+}
+
+.image-container img {
+  flex: 0 0 auto;
+  width: 100%;
+  transition: transform 0.5s ease;
+  height: auto;
+}
+
+.image-container img.active {
+  transform: translateX(calc(-100% * var(--index)));
+}
+
+.dots-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 2rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #555;
+}
+.moving-images-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.main_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 94vh;
+  margin-top: 90px;
+}
+.doctor-register {
+  height: 35%;
+  width: 40%;
+  position: absolute;
+  right: 15rem;
+  bottom: 6rem;
+  background: rgba(255, 255, 255, 0.571);
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  font-family: sans-serif;
+  padding:2rem 1rem;
+}
+.doctor-register:hover {
+  background-color: #000000a5;
+  transition: all 0.3s ease;
+}
+.doctor-register h1{
+  font-size: 2.5rem;
+  color: #ffffff;
+  background: #0098f7;
+  width: 100%;
+  border-radius: 20px 0;
+}
+.doctor-register p{
+  font-size: 1.5rem;
+  color: #004ef7;
+  margin-top: 2rem;
+  font-weight: bold;
+  font-family: 'poppins',sans-serif;
+}
+.doctor-register h3{
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+.doctor-register button{
+  padding: .5rem 2.5rem;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  color: #ffffff;
+  background: #0098f7;
+  margin: 1rem 0;
+  border: none;
+  cursor: pointer;
+font-weight: bold;}
+.doctor-register::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 66px;
+  width: 0;
+  height: 0;
+  border-top: 13px solid transparent;
+  border-right: 26px solid rgb(255, 255, 255);
+  border-bottom: 13px solid transparent;
+}
+.doc-img {
+  height: 70%;
+  position: absolute;
+  left: 11rem;
+  width: 30%;
+  background: url("../assets/doctor.png") no-repeat;
+  background-size: cover;
+  bottom: -2.5rem;
+}
+.contents{
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff51;
+margin-top: .5rem;
+align-items: center;}
