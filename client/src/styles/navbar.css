@@ -1,10 +1,12 @@
 .navbar {
-  background-color: #fffafa; /* White background */
+  background:url("../assets/back.jpg"); 
+  background-repeat: no-repeat;
+  background-size: cover;
   color: #ffffff; /* Black text */
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 20px;
+  padding: 20px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: sans-serif;
   font-size: .8rem;
@@ -16,7 +18,12 @@
   z-index: 1000;
   background-color: #72d3f9;
 }
-
+.nav-container{
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  align-items: center;
+}
 .logo {
   display: flex;
   align-items: center;
@@ -31,7 +38,8 @@
 
 
 .nav-links li {
-  margin-right: 20px;
+  margin-left: 20px;
+  text-decoration: none;
 }
 
 .nav-links {
@@ -43,7 +51,7 @@
   transition: color 0.3s ease, border-bottom 0.3s ease; 
   font-weight: 500;
   cursor: pointer;
-  justify-content: center;
+  justify-content: space-between;
   align-items:center ;
 }
 
@@ -54,9 +62,101 @@
 .nav-links li:last-child {
   background-color: #007BFF;
   padding: .5rem 1rem;
-  border-radius: 20px;
-}
-.nav-links li:last-child:hover {
+  border-radius: 5px;
   color: #ffffff;
 }
+.nav-links li:last-child:hover {
+  color: #008cff;
+}
 
+.profile-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  position: fixed;
+  top: 5rem;
+  right: 3rem;
+  background-color: white;
+  color: black;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 1rem;
+  z-index: 1000;
+  width: 200px;
+}
+
+.profile-dropdown p {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 40px;
+}
+.name-email{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profile-dropdown p:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.profile-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: black;
+}
+
+.profile-dropdown a:hover {
+  background-color: #f0f0f0;
+}
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.hamburger svg {
+  font-size: 1.5rem;
+}
+@media screen and (max-width: 974px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 40%;
+    background-color:#007BFF;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    padding: 1rem 0;
+    font-size: 1rem;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    padding: 1rem;
+    text-align: center;
+  }
+  .nav-links li:hover {
+    color: #02215e;
+  }
+  .hamburger {
+    display: block;
+  }
+  .nav-links li:last-child {
+    background-color: #ffffff;
+    color: #007BFF;
+  }
+  .nav-links li:last-child:hover {
+    color: #0088ff;
+  }
+}

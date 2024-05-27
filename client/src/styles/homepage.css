@@ -1,9 +1,9 @@
 .home-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: center;
   width: 80%;
-  gap: 2.94rem;
+  gap: 2rem;
   font-family: sans-serif;
 }
 
@@ -11,7 +11,7 @@
 .view-more {
   width: 250px;
   height: 250px;
-  background-color: #fff; /* White background */
+  background-color: #ffffff69; /* White background */
   color: #333; /* Dark text */
   border-radius: 20px;
   display: flex;
@@ -25,9 +25,11 @@
   flex-direction: column;
   gap: 2rem;
 }
-
+.hospital-box h3{
+  font-size: .9rem;
+}
 .hospital-box:hover {
-  background-color: #f0f0f0; /* Lighter background color on hover */
+  background-color: #0084ff72; /* Lighter background color on hover */
 }
 
 .search-bar {
@@ -67,10 +69,10 @@
   justify-content: center;
   align-items: center;
   height: auto;
-  padding:90px 0 3rem 0;
+  padding: 90px 0 3rem 0;
   gap: 2rem;
   background-color: #fffafa;
-  background: url('../assets/back2.png') no-repeat;
+  background: url("../assets/back2.png") no-repeat;
   background-size: cover;
   background-attachment: fixed;
 }
@@ -84,11 +86,12 @@
 .view-more {
   width: 250px;
   height: 250px;
-  background-color: #fff; /* White background */
+  background-color: #ffffff79; /* White background */
   color: #333; /* Dark text */
   border-radius: 20px;
   display: flex;
   flex-direction: column;
+  color: #006eff;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -98,10 +101,11 @@
   position: relative; /* Make position relative for absolute positioning of the icon */
 }
 .view-more:hover {
-  background-color: #f0f0f0; /* Lighter background color on hover */
+  background-color: #0084ff5b; /* Lighter background color on hover */
 }
 .view-more h3 {
   margin-right: 10px; /* Add spacing between text and icon */
+  color: #006eff;
 }
 
 .view-more svg {
@@ -119,18 +123,26 @@
   gap: 0.5rem;
 }
 .number {
-  background-color: #00fe1e;
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 20px;
+  border-radius: 10px;
+  background-color: #056ad7;
+  padding: .5rem 1rem;
+  color: white;
+  font-size: .9rem;
 }
-.text {
-  text-align: center;
-  width: 80%;
-background-color: #1f7cdf;
+
+.view-more-container {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1500;
+  box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+
 }
-.text h1{
-  font-family: sans-serif;
-  font-size: 2.5rem; 
-  color: #fff;
-}
+
+
+

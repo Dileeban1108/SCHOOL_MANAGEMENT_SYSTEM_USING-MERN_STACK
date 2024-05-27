@@ -25,6 +25,12 @@ const doctorSchema = new Schema({
     },
     regnumber:{
         type:String,
+    },
+    hospital:{
+        type:String,
+    },
+    specialization:{
+        type:String,
     }
 }, { timestamps: true });
 

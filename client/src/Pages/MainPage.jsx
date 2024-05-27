@@ -55,15 +55,18 @@ const MainPage = () => {
               />
             ))}
           </div>
-          <div className="doc-img"></div>
-          <div className="doctor-register">
-            <h1>Are You A Doctor</h1>
-            <div className="contents">
-              <p>Then join with us to make a world without patients</p>
-              <h3>click below to register</h3>
-              <button onClick={handleNavigate}>Join</button>
+          <div className="doc-img-container">
+            <div className="doc-img"></div>
+            <div className="doctor-register">
+              <h1>Are You A Doctor</h1>
+              <div className="contents">
+                <p>Then join with us to make a world without patients</p>
+                <h3>click below to register</h3>
+                <button onClick={handleNavigate}>Join</button>
+              </div>
             </div>
           </div>
+
           <button className="move-button right" onClick={moveToNextImage}>
             <FontAwesomeIcon icon={faArrowRight} />
           </button>

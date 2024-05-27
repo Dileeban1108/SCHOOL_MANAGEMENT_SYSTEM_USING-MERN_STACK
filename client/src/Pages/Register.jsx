@@ -2,16 +2,33 @@ import React, { useState } from "react";
 import "../styles/auth.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState(null);
+  const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [regnumber, setRegNumber] = useState("");
+  const [hospital, setHospital] = useState("");
+  const [specialization, setSpecialization] = useState("");
+
+  const specializationOptions = [
+    "none",
+    "Eye Specialist",
+    "Skin Specialist",
+    "Ear Specialist",
+    "Heart Specialist",
+    "Liver Specialist",
+    "Kidney Specialist",
+    "Dentist",
+    "Veterinarian",
+    "Radiologist",
+    "Physiotherapist"
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,30 +40,37 @@ const Register = () => {
         phone,
         address,
         regnumber,
+        hospital,
+        specialization,
       });
       if (response && response.data.success) {
-        navigate("/login");
+        toast.success("Successfully created an account!");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       } else {
-        toast.error(response.data.message);
+        toast.error(response.data.message || "Something went wrong");
       }
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong");
     }
   };
-  const handleBack=()=>{
-    navigate('/')
-  }
+
+  const handleBack = () => {
+    navigate("/");
+  };
+
   return (
     <div className="r_container">
+      <ToastContainer position="top-right" />
       <div className="sub">
-        <div className="rsub">
-        </div>
+        <div className="rsub"></div>
         <div className="r_main_container">
-        <div className="backtohome" onClick={handleBack}>Back to home</div>
-
+          <div className="backtohome" onClick={handleBack}>
+            Back to home
+          </div>
           <form className="r_form" onSubmit={handleSubmit}>
-
             <h2 className="r_title">Sign Up</h2>
             <input
               className="input-field"
@@ -90,6 +114,16 @@ const Register = () => {
             />
             <input
               className="input-field"
+              type="text"
+              id="hospital"
+              name="hospital"
+              value={hospital}
+              onChange={(e) => setHospital(e.target.value)}
+              placeholder="Hospital"
+              required
+            />
+            <input
+              className="input-field"
               type="number"
               id="phone"
               name="phone"
@@ -108,7 +142,19 @@ const Register = () => {
               placeholder="Address"
               required
             />
-            <button type="submit" className="submit-btn">
+            <select
+              className="input-field-select"
+              value={specialization}
+              onChange={(e) => setSpecialization(e.target.value)}
+              required
+            >
+              {specializationOptions.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            <button type="submit" className="submit-btn_10">
               Sign Up
             </button>
             <div className="link">

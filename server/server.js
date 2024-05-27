@@ -5,10 +5,16 @@ const mongoose = require('mongoose');
 require("dotenv").config();
 const connectDB = require('./config/dbConnnection'); // Corrected typo in filename
 const PORT = process.env.PORT || 3001;
+const emailRoutes = require('./routes/email');
+
+
 
 connectDB();
 
 app.use(express.json());
+
+app.use('/email', emailRoutes);
+
 app.use(cors());  
    
 // Error handling middleware
@@ -18,7 +24,6 @@ app.use((err, req, res, next) => {
 });
     
 app.use('/register', require('./routes/register')); 
-app.use('/lecturerRegister', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
        

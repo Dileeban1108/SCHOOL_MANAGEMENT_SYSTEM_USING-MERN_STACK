@@ -65,81 +65,115 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 94vh;
+  height: 90vh;
   margin-top: 90px;
 }
 .doctor-register {
-  height: 35%;
-  width: 40%;
-  position: absolute;
-  right: 15rem;
-  bottom: 6rem;
-  background: rgba(255, 255, 255, 0.571);
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
+  height: 100%;
+  width: 70%;
   display: flex;
-  flex-direction: column;
-  text-align: center;
+  justify-content: center;
   align-items: center;
-  font-family: sans-serif;
-  padding:2rem 1rem;
+  flex-direction: column;
+
 }
-.doctor-register:hover {
-  background-color: #000000a5;
-  transition: all 0.3s ease;
-}
-.doctor-register h1{
-  font-size: 2.5rem;
+.doctor-register h1 {
+  font-size: 2.1rem;
   color: #ffffff;
   background: #0098f7;
-  width: 100%;
-  border-radius: 20px 0;
+  width: 80%;
+  border-radius: 20px 0 0 0;
+  box-shadow: 0 0 5px black;
+  text-align: center;
+  padding: 0 2rem;
+
 }
-.doctor-register p{
+.doctor-register p {
   font-size: 1.5rem;
-  color: #004ef7;
+  color: #ffffff;
   margin-top: 2rem;
   font-weight: bold;
-  font-family: 'poppins',sans-serif;
+  font-family: "poppins", sans-serif;
 }
-.doctor-register h3{
+.doctor-register h3 {
   font-size: 1.5rem;
   margin-top: 2rem;
+  color: #ffffff;
 }
-.doctor-register button{
-  padding: .5rem 2.5rem;
+.doctor-register button {
+  padding: 0.5rem 2.5rem;
   border-radius: 10px;
   font-size: 1.5rem;
-  color: #ffffff;
-  background: #0098f7;
+  color: #00a2ff;
+  background: #ffffff;
   margin: 1rem 0;
   border: none;
   cursor: pointer;
-font-weight: bold;}
-.doctor-register::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 66px;
-  width: 0;
-  height: 0;
-  border-top: 13px solid transparent;
-  border-right: 26px solid rgb(255, 255, 255);
-  border-bottom: 13px solid transparent;
+  font-weight: bold;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
 }
 .doc-img {
-  height: 70%;
-  position: absolute;
-  left: 11rem;
+  height: 85%;
   width: 30%;
   background: url("../assets/doctor.png") no-repeat;
   background-size: cover;
-  bottom: -2.5rem;
+ padding: 2rem;
 }
-.contents{
+.contents {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff51;
-margin-top: .5rem;
-align-items: center;}
+  background-color: #0098f7;
+  margin-top: 0.5rem;
+  align-items: center;
+  border-radius: 0 0 20px 0;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  width: 80%;
+ box-shadow: 0 0 5px black;
+}
+@media screen and (max-width: 974px) {
+  .doc-img {
+    display: none;
+  }
+  .doctor-register {
+    height: 20%;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .doctor-register h1 {
+    font-size: 1.7rem;
+  }
+  .doctor-register p {
+    font-size: 1.3rem;
+  }
+  .doctor-register h3 {
+    font-size: 1.4rem;
+  }
+  .doctor-register button {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 525px) {
+  .doctor-register h1 {
+    font-size: 1.4rem;
+  }
+  .doctor-register p {
+    font-size: 1rem;
+  }
+  .doctor-register h3 {
+    font-size: 1.1rem;
+  }
+  .contents {
+    height: 150px;
+  }
+}
+.doc-img-container{
+  height: 70%;
+  width: 70%;
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
