@@ -11,7 +11,6 @@ const ReviewPage = () => {
   const [newReview, setNewReview] = useState({
     name: "",
     review: "",
-    rating: 0,
     image: userImage, // Set default image here
   });
 
@@ -57,7 +56,6 @@ const ReviewPage = () => {
       setNewReview({
         name: "",
         review: "",
-        rating: "",
         image: userImage,
       });
       toast.success("Review added Successfully!");
@@ -70,8 +68,8 @@ const ReviewPage = () => {
   return (
     <section className="reviews">
       <ToastContainer />
-      <div className="text">
-        <h1>Valuable Thoughts From Users</h1>
+      <div className="text2">
+        <h1>DON'T FORGRT TO COMMMENT</h1>
       </div>
 
       <div className="review-container">
@@ -84,13 +82,6 @@ const ReviewPage = () => {
             <img src={userImage} alt="Reviewer" />
             <h3>{review.name}</h3>
             <p>{review.review}</p>
-            <div className="rating">
-              {[...Array(review.rating)].map((_, index) => (
-                <span key={index} className="star">
-                  &#9733;
-                </span>
-              ))}
-            </div>
           </div>
         ))}
       </div>
@@ -105,16 +96,6 @@ const ReviewPage = () => {
               onChange={handleChange}
               required
             />
-            <input
-              type="number"
-              name="rating"
-              placeholder="Rating (1-5)"
-              value={newReview.rating}
-              onChange={handleChange}
-              required
-              min="1"
-              max="5"
-            />
             <textarea
               name="review"
               placeholder="Your Review"
@@ -122,8 +103,6 @@ const ReviewPage = () => {
               onChange={handleChange}
               required
             ></textarea>
-          </div>
-          <div className="sub2">
             <button type="submit">Submit Review</button>
           </div>
         </div>

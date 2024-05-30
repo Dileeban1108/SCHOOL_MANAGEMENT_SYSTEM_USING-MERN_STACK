@@ -1,148 +1,90 @@
-.home-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 80%;
-  gap: 2rem;
-  font-family: sans-serif;
-}
-
-.hospital-box,
-.view-more {
-  width: 250px;
-  height: 250px;
-  background-color: #ffffff69; /* White background */
-  color: #333; /* Dark text */
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
-  cursor: pointer; /* Cursor pointer on hover */
-  transition: background-color 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-.hospital-box h3{
-  font-size: .9rem;
-}
-.hospital-box:hover {
-  background-color: #0084ff72; /* Lighter background color on hover */
-}
-
-.search-bar {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.search-bar input[type="text"] {
-  width: 70%;
-  padding: 15px;
-  border-radius: 20px 0 0 20px;
-  border: none;
-  outline: none;
-  background-color: #f0f0f0;
-}
-
-.search-bar button {
-  padding: 15px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 0 20px 20px 0;
-  cursor: pointer;
-  outline: none;
-}
-
-.search-bar button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
-}
-
 .main-home-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: auto;
   padding: 90px 0 3rem 0;
-  gap: 2rem;
   background-color: #fffafa;
-  background: url("../assets/back2.png") no-repeat;
+  background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
 }
-.empty {
-  background: url("../assets/back.jpg") no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  height: 50vh;
+.sub_1 {
+  display: flex;
+  height: 300px;
   width: 100%;
+  gap: 1rem;
 }
-.view-more {
-  width: 250px;
-  height: 250px;
-  background-color: #ffffff79; /* White background */
-  color: #333; /* Dark text */
-  border-radius: 20px;
+.sub_2 {
   display: flex;
-  flex-direction: column;
-  color: #006eff;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
-  cursor: pointer; /* Cursor pointer on hover */
-  transition: background-color 0.3s ease; /* Smooth transition */
-  position: relative; /* Make position relative for absolute positioning of the icon */
-}
-.view-more:hover {
-  background-color: #0084ff5b; /* Lighter background color on hover */
-}
-.view-more h3 {
-  margin-right: 10px; /* Add spacing between text and icon */
-  color: #006eff;
+  height: 300px;
+  width: 100%;
+  gap: 1rem;
 }
 
-.view-more svg {
-  position: absolute; /* Position the icon absolutely */
-  right: 20px; /* Adjust as needed */
-}
-.hospital-box h3 {
-  color: #717070;
-  padding: 0.4rem;
-}
-.location-icon {
+.home-container {
+  width: 90%;
+  height: auto;
   display: flex;
+  justify-content: start;
   flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 2rem;
 }
-.number {
+
+.sub_1_1 {
+  height: 100%;
+  width: 60%;
+  background: url("../assets/primary.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
   border-radius: 10px;
-  background-color: #056ad7;
-  padding: .5rem 1rem;
-  color: white;
-  font-size: .9rem;
+  transition: transform 1s ease; /* Add transition for smooth rotation */
 }
 
-.view-more-container {
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+.sub_1_1:hover {
+  transform: rotateY(180deg); /* Corrected transform property */
+}
+
+.sub_1_2 {
+  height: 100%;
+  width: 40%;
+  background-color: #fafdff7b;
+  box-shadow: 0 0 10px black;  border-radius: 10px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1500;
-  box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+  flex-direction: column;
+  justify-content: space-around;
+  color: #008cff;
 
 }
-
-
-
+.sub_1_2 button {
+padding: 1rem 2rem;
+}
+.sub_2_1 button {
+padding: 1rem 2rem;
+}
+.sub_2_1 {
+  height: 100%;
+  width: 40%;
+  background-color: #fafdff7b;
+  box-shadow: 0 0 10px black;
+  border-radius: 10px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  display: flex;
+  color: #008cff;
+}
+.sub_2_2 {
+  height: 100%;
+  background: url("../assets/secondary.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 60%;
+  border-radius: 10px;
+  transition: transform 1s ease; /* Add transition for smooth rotation */
+}
+.sub_2_2:hover {
+  transform: rotateY(180deg); /* Corrected transform property */
+}

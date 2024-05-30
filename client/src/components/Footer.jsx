@@ -1,19 +1,28 @@
 import React from "react";
 import "../styles/footer.css";
-// import { FaFacebook, FaInstagram } from "react-icons/fa";
-// import { AiOutlineGoogle } from "react-icons/ai";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { AiOutlineGoogle } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <section className="footer-content">
-        <div className="footer__section">
-          <h5 className="footer__heading"> Join Us Today</h5>
-          <p>
-            Empower minds and embrace new learning opportunities with [Website
-            Name]. Join us in shaping the future of education!
-          </p>
+        <div className="container_1">
+          <h5 className="footer__heading">Contact Us</h5>
+          <ul className="icons-list">
+            <h3>Email:example@gmail.com</h3>
+            <h3>Phone:+94 1123 34 24</h3>
+            <NavLink to="">
+              <FaFacebook />
+            </NavLink>
+            <NavLink to="">
+              <FaInstagram />
+            </NavLink>
+            <NavLink to="">
+              <AiOutlineGoogle />
+            </NavLink>
+          </ul>
         </div>
         <div className="container_1">
           <h5 className="footer__heading">Links</h5>
@@ -33,21 +42,6 @@ const Footer = () => {
                 Log In
               </a>
             </li>
-          </ul>
-        </div>
-
-        <div className="container_1">
-          <h5 className="footer__heading">Contact Me</h5>
-          <ul className="icons-list">
-            <NavLink to="">
-              {/* <FaFacebook /> */}
-            </NavLink>
-            <NavLink to="">
-              {/* <FaInstagram /> */}
-            </NavLink>
-            <NavLink to="">
-              {/* <AiOutlineGoogle /> */}
-            </NavLink>
           </ul>
         </div>
       </section>
