@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/review.css";
-import userImage from "../assets/user.png"; // Correctly import the image
+import userImage from "../assets/users.jpg"; // Correctly import the image
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -71,20 +71,6 @@ const ReviewPage = () => {
       <div className="text2">
         <h1>DON'T FORGRT TO COMMMENT</h1>
       </div>
-
-      <div className="review-container">
-        {reviews.map((review) => (
-          <div
-            key={review.id}
-            className="review-box"
-            style={{ transform: `translateX(-${currentPage * 112.8}%)` }}
-          >
-            <img src={userImage} alt="Reviewer" />
-            <h3>{review.name}</h3>
-            <p>{review.review}</p>
-          </div>
-        ))}
-      </div>
       <form className="review-form" onSubmit={handleSubmit}>
         <div className="review-inputs">
           <div className="sub1">
@@ -103,10 +89,25 @@ const ReviewPage = () => {
               onChange={handleChange}
               required
             ></textarea>
-            <button type="submit">Submit Review</button>
+            <button type="submit" className="review_submit">
+              Submit{" "}
+            </button>
           </div>
         </div>
       </form>
+      <div className="review-container">
+        {reviews.map((review) => (
+          <div
+            key={review.id}
+            className="review-box"
+            style={{ transform: `translateX(-${currentPage * 112.8}%)` }}
+          >
+            <img src={userImage} alt="Reviewer" />
+            <h3>{review.name}</h3>
+            <p>{review.review}</p>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };

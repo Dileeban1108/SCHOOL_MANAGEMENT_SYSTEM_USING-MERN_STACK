@@ -1,42 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Typed from "typed.js";
 import "../styles/mainpage.css";
-import { useNavigate } from "react-router-dom";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import school from "../assets/school.jpg";
+import school1 from "../assets/school1.jpg";
+import school2 from "../assets/school2.jpg";
+import school3 from "../assets/school3.jpg";
+import school4 from "../assets/school4.jpg";
+ const MainPage = () => {
+  const images = [
+    school,
+    school1,
+    school2,
+    school3,
+    school4
+   ];
 
-const texts = [
-  { part1: "LET'S", part2: "BEGIN THE", part3: "JOURNEY WITH", part4: "BEST", part5: "SCHOOL", part6: "RUWANWELLA", part7: "RAJASINGHE", part8: "CENTRAL", part9: "❤RCC❤", part10: "COLLEGE" },
-  // Add more objects here to cycle through different texts if needed
-];
+  const el = useRef(null);
+  const typed = useRef(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-const MainPage = () => {
-  const [textIndex, setTextIndex] = useState(0);
+  useEffect(() => {
+    const options = {
+      strings: [
+        `LET'S BEGIN THE <br> JOURNEY WITH <br> <span>BEST</span> <br> SCHOOL  <br> RAJASINGHE <br> CENTRAL <br> COLLEGE <br> RUWANWELLA <br> ❤RCC❤ `,
+      ],
+      typeSpeed: 50,
+      backSpeed: 25,
+      backDelay: 2000,
+      startDelay: 1000,
+      loop: true,
+      smartBackspace: true,
+    };
+
+    typed.current = new Typed(el.current, options);
+
+    return () => {
+      typed.current.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
-    }, 5000); // Change text every 5 seconds
-    return () => clearInterval(interval);
-  }, []);
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, [images.length]);
 
   return (
     <section className="main">
       <div className="main_container">
         <div className="image-container">
-          <div className="text-conatiner">
-            <p>
-              <span>{texts[textIndex].part1}</span> {texts[textIndex].part2} <br />
-              {texts[textIndex].part3} <br />
-              <span>{texts[textIndex].part4}</span> <br />
-              {texts[textIndex].part5} <br />
-              <br />
-              {texts[textIndex].part6} <br />
-              {texts[textIndex].part7} <br />
-              {texts[textIndex].part8} <br />
-              {texts[textIndex].part9} <br />
-              {texts[textIndex].part10} <br />
-            </p>
+          <div className="text-container">
+            <p ref={el}></p>
           </div>
-          <div className="img1-container"></div>
+          <div
+            className="img1-container"
+            style={{ backgroundImage: `url(${images[currentImageIndex]})` }}
+          ></div>
         </div>
       </div>
     </section>

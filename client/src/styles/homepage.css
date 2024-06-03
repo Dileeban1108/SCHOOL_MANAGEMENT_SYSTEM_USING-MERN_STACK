@@ -3,8 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 90px 0 3rem 0;
-  background-color: #fffafa;
+  padding: 140px 0 50px 0;
   background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -29,7 +28,7 @@
   justify-content: start;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .sub_1_1 {

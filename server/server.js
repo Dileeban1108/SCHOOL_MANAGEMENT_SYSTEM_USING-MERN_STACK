@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 require("dotenv").config();
 const connectDB = require('./config/dbConnnection'); // Corrected typo in filename
 const PORT = process.env.PORT || 3001;
-const emailRoutes = require('./routes/email');
+const path = require('path');
 
 
 
@@ -13,16 +13,16 @@ connectDB();
 
 app.use(express.json());
 
-app.use('/email', emailRoutes);
 
 app.use(cors());  
-   
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Error handling middleware
 app.use((err, req, res, next) => { 
     console.error(err.stack); 
     res.status(500).send('Something went wrong!');
 });
-    
+
 app.use('/register', require('./routes/register')); 
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));

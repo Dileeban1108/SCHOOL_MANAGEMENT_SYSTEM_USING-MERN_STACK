@@ -11,7 +11,7 @@
   background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  padding: 2rem;
+  padding: 150px 0 50px 0;
 }
 
 .slider {
@@ -21,43 +21,50 @@
 }
 
 .slide {
-  min-width: 100%;
+  width: 95vw;
   position: relative;
 }
 
-.slide img {
-  width: 100%;
-  height: 600px; 
+.bac-img {
+  height: 600px;
   object-fit: cover;
   border-radius: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .description {
   position: absolute;
-  bottom: 10px;
-  left: 20px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+  bottom: 200px;
+  left: 20%;
+  background-color: rgba(255, 255, 255, 0.648);
+  color: rgb(3, 141, 255);
   padding: 10px;
   border-radius: 5px;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  width: 60%;
+  height: 200px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
 }
-
-.slide:hover .description {
-  opacity: 1;
-}
-
 
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-100% * 2)); /* Adjust based on number of images */
+    transform: translateX(
+      calc(-100% * 2)
+    ); /* Adjust based on number of images */
   }
 }
-.text2 h1{
+.text2 h1 {
   width: 90%;
   font-size: 2rem;
   background: linear-gradient(
@@ -65,16 +72,32 @@
     rgba(72, 72, 72, 0.8),
     rgba(1, 162, 255, 0.8),
     rgba(255, 1, 1, 0.8)
-  ); 
+  );
   background-size: 200% 100%;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   animation: shine 2s infinite linear;
-border: solid;
+  border: solid;
 }
 .text2 {
   width: 100%;
   display: flex;
-  justify-content: center;align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+.delete_icon {
+  position: relative;
+  color: rgb(255, 0, 0);
+  font-size: 34px;
+  cursor: pointer;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  width: 60px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
 }

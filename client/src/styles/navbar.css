@@ -1,10 +1,11 @@
+/* Base styles */
 .navbar {
-  color: #008cff; /* Black text */
+  color: #008cff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: sans-serif;
-  font-size: .8rem;
+  font-size: 0.8rem;
   height: auto;
   top: 0;
   left: 0;
@@ -15,7 +16,8 @@
   box-shadow: 0 0 10px black;
   flex-direction: column;
 }
-.nav-container{
+
+.nav-container {
   display: flex;
   justify-content: space-between;
   width: 90%;
@@ -23,12 +25,13 @@
   margin: 8px;
   height: 70px;
 }
+
 .rcc-container {
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 10px 20px;
-  background-color: #007BFF;
+  background-color: #007bff;
   width: 100%;
   color: #ddd;
   height: 20px;
@@ -43,10 +46,10 @@
   text-align: center;
 }
 
-
-.contact-info{
+.contact-info {
   font-size: 1.2rem;
 }
+
 .logo {
   align-items: center;
   position: relative;
@@ -54,46 +57,98 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.logo img{
+
+.logo img {
   align-items: center;
   position: relative;
   height: 100%;
   border-radius: 50%;
-
-}
-
-
-
-.nav-links li {
-  margin-left: 20px;
-  text-decoration: none;
 }
 
 .nav-links {
   list-style-type: none;
   display: flex;
-  color: #009dff; 
+  color: #009dff;
   text-decoration: none;
   font-size: 1.2rem;
-  transition: color 0.3s ease, border-bottom 0.3s ease; 
+  transition: color 0.3s ease, border-bottom 0.3s ease;
   font-weight: 500;
   cursor: pointer;
   justify-content: space-between;
-  align-items:center ;
+  align-items: center;
+}
+
+.nav-links li {
+  margin-left: 20px;
+  text-decoration: none;
+  position: relative; /* To contain dropdown */
 }
 
 .nav-links li:hover {
-  color: #007BFF;
-  border-bottom: 2px solid #007BFF; 
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
 }
-.nav-links li:last-child {
-  background-color: #007BFF;
-  padding: .5rem 1rem;
-  border-radius: 5px;
-  color: #ffffff;
+
+
+
+/* Dropdown styles */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 200px;
+  padding: 1rem;
 }
-.nav-links li:last-child:hover {
-  color: #008cff;
+
+.nav-links li:hover .dropdown,
+.dropdown:hover {
+  display: block; /* Keep dropdown open on hover */
+}
+
+.dropdown a {
+  display: flex;
+  padding: 10px;
+  color: #0095ff;
+  text-decoration: none;
+  white-space: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Submenu styles */
+.submenu {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 200px;
+}
+
+.dropdown a:hover + .submenu,
+.submenu:hover {
+  display: block; /* Keep submenu open on hover */
+}
+
+.submenu a {
+  display: block;
+  padding: 10px;
+  color: #000;
+  text-decoration: none;
+}
+
+.submenu a:hover {
+  background-color: #f0f0f0;
 }
 
 .profile-icon {
@@ -102,9 +157,9 @@
 }
 
 .profile-dropdown {
-  position: fixed;
-  top: 5rem;
-  right: 3rem;
+  position: absolute;
+  top: 100%;
+  right: 0;
   background-color: white;
   color: black;
   border: 1px solid #ddd;
@@ -119,15 +174,20 @@
   margin: 0.5rem 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   height: 40px;
+  font-size: 1rem;
+  justify-content: space-between;
+  color: #008cff;
 }
-.name-email{
+
+.name-email {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: #007bff;
 }
+
 .profile-dropdown p:hover {
   background-color: #f0f0f0;
   cursor: pointer;
@@ -144,6 +204,7 @@
 .profile-dropdown a:hover {
   background-color: #f0f0f0;
 }
+
 .hamburger {
   display: none;
   cursor: pointer;
@@ -152,12 +213,13 @@
 .hamburger svg {
   font-size: 1.5rem;
 }
+
 @media screen and (max-width: 974px) {
   .nav-links {
     display: none;
     flex-direction: column;
     width: 40%;
-    background-color:#007BFF;
+    background-color: #007bff;
     position: absolute;
     top: 100%;
     right: 0;
@@ -173,17 +235,20 @@
     padding: 1rem;
     text-align: center;
   }
+
   .nav-links li:hover {
     color: #02215e;
   }
+
   .hamburger {
     display: block;
   }
-  .nav-links li:last-child {
-    background-color: #ffffff;
-    color: #007BFF;
-  }
-  .nav-links li:last-child:hover {
-    color: #0088ff;
-  }
+
+  
+}
+
+.profile_img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }

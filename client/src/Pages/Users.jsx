@@ -1,40 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../styles/users.css';
-import user from "../assets/users.jpg"
-const usersData = [
-  { id: 1, image: user, name: 'John Doe', position: 'Software Engineer', degree: 'B.Sc. Computer Science' },
-  { id: 2, image: user, name: 'Jane Smith', position: 'Project Manager', degree: 'M.Sc. Management' },
-  { id: 3, image: user, name: 'Alice Johnson', position: 'Data Scientist', degree: 'Ph.D. Data Science' },
-  // Add more users as needed
-];
+import userPlaceholderImage from '../assets/users.jpg';
+
+const allowedPositions = ["principal", "vice principal", "sport coach"];
+
+const fetchUsers = async () => {
+  try {
+    const response = await axios.get(`http://localhost:3001/auth/getUsers`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch user details", error);
+    return [];
+  }
+};
 
 const Users = () => {
+  const [usersData, setUsersData] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await fetchUsers();
+      console.log("Fetched Users: ", data); // Log fetched users for debugging
+      setUsersData(data);
+    };
+    getUsers();
+  }, []);
+
+  const filteredUsers = usersData.filter(user =>
+    allowedPositions.includes(user.position.toLowerCase())
+  );
+
   return (
     <div className="users-container">
       <div className="users-wrapper">
-        {usersData.map(user => (
-          <div key={user.id} className="user-box">
-            <img src={user.image} alt={user.name} className="user-image" />
-            <div className="user-info">
-              <h2>{user.name}</h2>
-              <p>{user.position}</p>
-              <p>{user.degree}</p>
+        {filteredUsers.map(user => {
+          const greeting = user.sex === "female" ? "Ms." : "Mr.";
+          return (
+            <div key={user.id} className="user-box">
+              <img src={user.image || userPlaceholderImage} alt={user.username} className="user-image" />
+              <div className="user-info">
+                <h2>{greeting} {user.username}</h2>
+                <p>{user.position}</p>
+                <p>{user.phone}</p>
+              </div>
             </div>
-          </div>
-        ))}
-        {usersData.map(user => (
-          <div key={user.id + usersData.length} className="user-box">
-            <img src={user.image} alt={user.name} className="user-image" />
-            <div className="user-info">
-              <h2>{user.name}</h2>
-              <p>{user.position}</p>
-              <p>{user.degree}</p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
-}
+};
 
 export default Users;
