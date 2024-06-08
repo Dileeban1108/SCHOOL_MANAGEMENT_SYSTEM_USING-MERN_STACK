@@ -17,5 +17,6 @@ router.get("/getReviews", authController.getReviews);
 router.delete("/deleteEvent", authController.deleteEvent);
 router.delete("/deleteAchievement", authController.deleteAchievement);
 router.delete("/deleteAnnouncement", authController.deleteAnnouncement);
+router.delete("/deleteReview/:id", authController.deleteReview);
 
 module.exports = router;

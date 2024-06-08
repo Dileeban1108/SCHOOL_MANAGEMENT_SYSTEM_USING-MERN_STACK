@@ -23,7 +23,7 @@
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    height: 60%;
+    height: 80%;
     width: 300px;
     gap: 30px;
     display: flex;
@@ -32,11 +32,12 @@
     align-items: center;
   }
   
-  .user-image {
+  .user-image_2 {
     width: 150px;
     height: 150px;
     border-radius: 10px;
     box-shadow: 0 0 1px black;
+    object-fit: cover;
   }
   
   @keyframes scroll {

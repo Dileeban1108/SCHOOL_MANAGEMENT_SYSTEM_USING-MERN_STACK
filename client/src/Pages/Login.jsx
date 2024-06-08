@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div className="r_container">
+    <div className="r_container_2">
       <ToastContainer />
       <NavBar/>
         <div className="r_main_container">

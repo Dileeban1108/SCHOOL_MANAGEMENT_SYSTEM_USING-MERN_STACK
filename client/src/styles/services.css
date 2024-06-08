@@ -24,29 +24,24 @@
   width: 95vw;
   position: relative;
 }
-
-.bac-img {
-  height: 600px;
-  object-fit: cover;
-  border-radius: 10px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+.bac-img-container {
   display: flex;
+  height: 600px;
+  border-radius: 10px;
   justify-content: center;
   align-items: center;
 }
-
+.bac-img{
+width: 80%;
+height: 100%;
+border-radius: 10px;
+}
 .description {
   position: absolute;
-  bottom: 200px;
-  left: 20%;
   background-color: rgba(255, 255, 255, 0.648);
   color: rgb(3, 141, 255);
   padding: 10px;
   border-radius: 5px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
   width: 60%;
   height: 200px;
   font-size: 2rem;
@@ -59,9 +54,7 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(
-      calc(-100% * 2)
-    ); /* Adjust based on number of images */
+    transform: translateX(calc(-100% * 2));
   }
 }
 .text2 h1 {
@@ -87,17 +80,17 @@
   align-items: center;
 }
 .delete_icon {
-  position: relative;
-  color: rgb(255, 0, 0);
-  font-size: 34px;
+  position: absolute;
+  color: rgb(255, 255, 255);
+  font-size: 24px;
   cursor: pointer;
-  text-align: center;
-  background-color: rgb(255, 255, 255);
+   text-align: center;
+  background-color: rgb(69, 67, 67);
   border-radius: 50%;
-  width: 60px;
+  width: 50px;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4px;
+  padding: 4px; 
 }

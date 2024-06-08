@@ -45,6 +45,7 @@ const HomePage = () => {
   }, []);
   return (
     <section className="home">
+      
       <Navbar
         main="main"
         services="services"
@@ -54,9 +55,7 @@ const HomePage = () => {
         userRole={userRole}
         userDetails={userDetails}
       />
-
       <MainPage id="main" />
-
       <Users />
 
       <div className="main-home-container" id="academics">
@@ -85,7 +84,7 @@ const HomePage = () => {
       <div className="ultracontainer">
         <ServicesPage userRole={userRole} id="services" />
         <AboutUs id="aboutus" />
-        <ReviewPage id="reviews" />
+        <ReviewPage id="reviews" userRole={userRole}/>
         <Footer />
       </div>
     </section>

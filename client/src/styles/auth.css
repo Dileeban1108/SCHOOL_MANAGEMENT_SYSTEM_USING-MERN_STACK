@@ -6,11 +6,27 @@
   font-family: sans-serif;
   background-size: cover;
   background-attachment: fixed;
-  height: 100vh;
+  height: auto;
   background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  margin-top: 90px;
+  margin-top: 130px;
+  padding: 2rem;
+}
+.r_container_2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 75vh;
+  background: url("../assets/back1.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  margin-top: 130px;
+  padding: 2rem;
 }
 
 .r_main_container {
@@ -101,4 +117,36 @@
 
 .link a:hover {
   color: #357ab8;
+}
+.profile-image{
+  display: none;
+}
+.signup_profile_section{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 70%;
+  margin-bottom: 20px;
+  box-shadow: 0 0 1px rgb(109, 109, 109);
+  padding: 10px;
+  border-radius: 10px;
+}
+.signup_profile_section img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.signup_profile_section label{
+  background-color: #007bff;
+  padding: 10px;
+  border-radius: 5px;
+  color: aliceblue;
+  cursor: pointer;
+}
+.input_section{
+  width: 85%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }

@@ -2,40 +2,25 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 
-const AddNewEventModal = ({ show, onClose, userDetails }) => {
+const AddNewAchievementModal = ({ show, onClose, userDetails }) => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    image: null,
-    description: "",
-  });
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "image") {
-      setFormData({
-        ...formData,
-        image: files[0],
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formDataToSend = new FormData();
-    formDataToSend.append("image", formData.image);
-    formDataToSend.append("description", formData.description);
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("description", description);
+
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/auth/createAchievement",
-        formDataToSend,
+      const uploadResponse = await axios.post(
+        "http://localhost:3001/upload",
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -43,8 +28,15 @@ const AddNewEventModal = ({ show, onClose, userDetails }) => {
         }
       );
 
+      const imageUrl = uploadResponse.data.filePath;
+
+      const response = await axios.post("http://localhost:3001/auth/createAchievement", {
+        description,
+        image: imageUrl,
+      });
+
       if (response && response.data.success) {
-        toast.success("Successfully created ");
+        toast.success("Successfully created an Announcement!");
         setTimeout(() => {
           navigate("/");
         }, 2000);
@@ -56,11 +48,9 @@ const AddNewEventModal = ({ show, onClose, userDetails }) => {
       toast.error("Something went wrong");
     }
   };
-
   if (!show) {
     return null;
   }
-
   return (
     <div className="modal-overlay">
       <ToastContainer position="top-right" />
@@ -68,23 +58,32 @@ const AddNewEventModal = ({ show, onClose, userDetails }) => {
         X
       </button>
       <div className="modal-content_6">
-        <h2>Add New Event</h2>
+        <h2>Add New Achievement</h2>
         <form onSubmit={handleSubmit}>
-          <div className="inputs">
-            <input
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleChange}
-            />
+        <div className="inputs">
+          <input
+            type="file"
+            accept="/image/"
+            onChange={(event) => {
+              const file = event.target.files[0];
+              if (file && file.type.substring(0, 5) === "image") {
+                setImage(file);
+              } else {
+                setImage(null);
+              }
+            }}
+            name="image"
+            required
+          />
           </div>
           <div className="inputs">
-            <label>Description:</label>
             <input
               type="text"
               name="description"
-              value={formData.description}
-              onChange={handleChange}
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
             />
           </div>
           <button type="submit" className="submit">
@@ -96,4 +95,4 @@ const AddNewEventModal = ({ show, onClose, userDetails }) => {
   );
 };
 
-export default AddNewEventModal;
+export default AddNewAchievementModal;

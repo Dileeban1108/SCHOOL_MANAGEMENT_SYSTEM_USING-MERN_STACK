@@ -78,3 +78,40 @@
   font-size: 1rem;
   font-weight: 800;
 }
+.update_profile_section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  box-shadow: 0 0 1px rgb(109, 109, 109);
+  padding: 10px;
+  border-radius: 10px;
+}
+.update_profile_section img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.update_profile_section label{
+  background-color: #007bff;
+  padding: 10px;
+  border-radius: 5px;
+  color: aliceblue;
+  cursor: pointer;
+  position: relative;
+  top: 20px;
+  right: 15px;
+}
+.update_profile_section label{
+  background-color: #4a95eb;
+  padding: 5px;
+  border-radius: 5px;
+  color: aliceblue;
+  cursor: pointer;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 20px;
+}

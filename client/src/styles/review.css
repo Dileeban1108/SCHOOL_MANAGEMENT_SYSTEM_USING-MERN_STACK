@@ -3,10 +3,10 @@
   justify-content: center;
   align-items: center;
   height: auto;
-  padding:90px 0 3rem 0;
-  background: url('../assets/back1.jpg') no-repeat;
+  padding: 90px 0 3rem 0;
+  background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
-  background-attachment: fixed; 
+  background-attachment: fixed;
   flex-direction: column;
   color: #ffffff;
 }
@@ -17,23 +17,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  overflow: hidden; 
+  overflow: hidden;
   gap: 3rem;
   margin-top: 2rem;
   z-index: 1;
 }
 
 .review-box {
-  flex: 0 0 auto; 
-  width: 26.5%; 
+  flex: 0 0 auto;
+  width: 26.5%;
   height: 200px;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   transition: transform 0.5s ease;
   font-family: sans-serif;
-  border: .5px solid  rgb(175, 172, 172);
-  background-color:rgb(240, 248, 255);
+  border: 0.5px solid rgb(175, 172, 172);
+  background-color: rgb(240, 248, 255);
   color: rgb(0, 153, 255);
 }
 
@@ -48,38 +48,38 @@
   margin-bottom: 10px;
 }
 
-
-
-
-
-.review-inputs{
+.review-inputs {
   width: auto;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-padding: 1rem;
-border-radius: 10px;
+  padding: 1rem;
+  border-radius: 10px;
 }
-.review-form{
+
+.review-form {
   width: 90%;
   margin-top: 2rem;
 }
-.sub1{
+
+.sub1 {
   width: 100%;
   justify-content: space-between;
   display: flex;
   gap: 10px;
   height: 50px;
 }
-.sub1 input{
+
+.sub1 input {
   width: 20%;
   text-align: center;
-border-radius: 10px;
-border: none;
+  border-radius: 10px;
+  border: none;
 }
-.sub1 textarea{
+
+.sub1 textarea {
   width: 70%;
   text-align: center;
   border: none;
@@ -87,26 +87,44 @@ border: none;
   padding-top: 1rem;
 }
 
-@media screen and (max-width: 479px) {
-  .review-box {
-    width: 90%; 
-  }
-}
-@media screen and (max-width: 479px) {
-  .sub1 input{
-    width: 30%;
-
-  }
-  .sub1 textarea{
-    width: 60%;
-
-  }
-}
-.review_submit{
+.review_submit {
   background-color: rgb(0, 110, 255);
   border-radius: 10px;
   border: none;
   width: 100px;
   color: #ffffff;
   cursor: pointer;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1024px) {
+  .review-box {
+    width: 45%;
+  }
+  .review-container {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .review-box {
+    width: 60%;
+  }
+  .review-container {
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .review-box {
+    width: 90%;
+    height: auto;
+    padding: 15px;
+  }
+  .sub1 input {
+    width: 30%;
+  }
+  .sub1 textarea {
+    width: 60%;
+  }
 }

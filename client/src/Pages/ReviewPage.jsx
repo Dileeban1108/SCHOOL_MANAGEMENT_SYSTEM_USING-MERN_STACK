@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/review.css";
-import userImage from "../assets/users.jpg"; // Correctly import the image
+import userImage from "../assets/users.jpg"; 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const ReviewPage = () => {
+const ReviewPage = ({userRole}) => {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+
   const [newReview, setNewReview] = useState({
     name: "",
     review: "",
@@ -64,7 +67,16 @@ const ReviewPage = () => {
       toast.error("Failed to add review");
     }
   };
-
+  const handleDelete = async (reviewToDelete) => {
+    try {
+      await axios.delete(`http://localhost:3001/auth/deleteReview/${reviewToDelete._id}`);
+      setReviews(reviews.filter((review) => review._id !== reviewToDelete._id));
+      toast.success("Review deleted successfully");
+    } catch (error) {
+      console.error("Error deleting review:", error);
+      toast.error("Failed to delete review");
+    }
+  };
   return (
     <section className="reviews">
       <ToastContainer />
@@ -102,6 +114,11 @@ const ReviewPage = () => {
             className="review-box"
             style={{ transform: `translateX(-${currentPage * 112.8}%)` }}
           >
+             {userRole === "user" && ( 
+              <div className="delete_icon" onClick={() => handleDelete(review)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </div>
+            )}
             <img src={userImage} alt="Reviewer" />
             <h3>{review.name}</h3>
             <p>{review.review}</p>

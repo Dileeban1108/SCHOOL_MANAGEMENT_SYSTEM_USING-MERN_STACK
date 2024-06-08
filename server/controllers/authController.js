@@ -5,8 +5,6 @@ const Event = require("../models/Event");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Review=require("../models/Review")
-const upload = require("../middlewares/upload"); 
-
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -50,78 +48,83 @@ const handleLogin = async (req, res) => {
   }
 };
 const handleNewAnnouncement = async (req, res) => {
-  upload(req, res, async function (err) {
-    if (err) return res.status(500).json({ message: 'File upload failed' });
+  const { description, image } = req.body;
+  if (!description || !image ) {
+    return res.status(400).json({ message: "something is required" });
+  }
 
-    const imageUrl = req.file.path;
-    const { description } = req.body;
+  const duplicateImg = await Announcement.findOne({ image: image }).exec();
+  if (duplicateImg) {
+    return res.status(409).json({ message: "image is already exist" });
+  }
 
-    if (!imageUrl || !description) return res.status(400).json({ message: 'Image and description are required' });
+  try {
 
-    const duplicate = await Announcement.findOne({ image: imageUrl }).exec();
-    if (duplicate) return res.status(409).json({ message: 'Announcement already exists' });
+    await Announcement.create({
+      image,
+      description,
+    });
 
-    try {
-      await Announcement.create({ image: imageUrl, description });
-      res.status(200).json({ success: 'Announcement created' });
-    } catch (error) {
-      res.status(500).json({ error: `${error.message}` });
-    }
-  });
+    res.status(200).json({ success: ` created` });
+  } catch (error) {
+    res.status(500).json({ error: `${error.message}` });
+  }
 };
 
 const handleNewAchievement = async (req, res) => {
-  upload(req, res, async function (err) {
-    if (err) return res.status(500).json({ message: 'File upload failed' });
+  const { description, image} = req.body;
+  if (!description || !image) {
+    return res.status(400).json({ message: "is required" });
+  }
 
-    const imageUrl = req.file.path;
-    const { description } = req.body;
+  const duplicateImage = await Achievement.findOne({ image: image }).exec();
+  if (duplicateImage) {
+    return res.status(409).json({ message: "already exist" });
+  }
 
-    if (!imageUrl || !description) return res.status(400).json({ message: 'Image and description are required' });
+  try {
 
-    const duplicate = await Achievement.findOne({ image: imageUrl }).exec();
-    if (duplicate) return res.status(409).json({ message: 'Achievement already exists' });
+    await Achievement.create({
+      image,
+      description,
+    });
 
-    try {
-      await Achievement.create({ image: imageUrl, description });
-      res.status(200).json({ success: 'Achievement created' });
-    } catch (error) {
-      res.status(500).json({ error: `${error.message}` });
-    }
-  });
+    res.status(200).json({ success: `created` });
+  } catch (error) {
+    res.status(500).json({ error: `${error.message}` });
+  }
 };
 
 const handleNewEvent = async (req, res) => {
-  upload(req, res, async function (err) {
-    if (err) return res.status(500).json({ message: 'File upload failed' });
+  const { description, image } = req.body;
+  if (!description || !image ) {
+    return res.status(400).json({ message: "something is required" });
+  }
 
-    const imageUrl = req.file.path;
-    const { description } = req.body;
+  const duplicateImg = await Event.findOne({ image: image }).exec();
+  if (duplicateImg) {
+    return res.status(409).json({ message: "image is already exist" });
+  }
 
-    if (!imageUrl || !description) return res.status(400).json({ message: 'Image and description are required' });
+  try {
 
-    const duplicate = await Event.findOne({ image: imageUrl }).exec();
-    if (duplicate) return res.status(409).json({ message: 'Event already exists' });
+    await Event.create({
+      image,
+      description,
+    });
 
-    try {
-      await Event.create({ image: imageUrl, description });
-      res.status(200).json({ success: 'Event created' });
-    } catch (error) {
-      res.status(500).json({ error: `${error.message}` });
-    }
-  });
+    res.status(200).json({ success: ` created` });
+  } catch (error) {
+    res.status(500).json({ error: `${error.message}` });
+  }
 };
 
 const getAnnouncements = async (req, res) => {
   try {
-    const filters = req.body;
-
-    const result = await Announcement.find(filters);
-
-    res.status(200).json(result);
+    const announcements = await Announcement.find();
+    res.status(200).json(announcements);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch hospitals" });
+    res.status(500).json({ message: 'Error fetching announcements', error: error.message });
   }
 };
 const getAchievements = async (req, res) => {
@@ -139,9 +142,7 @@ const getAchievements = async (req, res) => {
 const getEvents = async (req, res) => {
   try {
     const filters = req.body;
-
     const result = await Event.find(filters);
-
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
@@ -200,6 +201,22 @@ const deleteEvent = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to delete" });
+  }
+};
+const deleteReview = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleteByReview = await Review.findByIdAndDelete(id);
+
+    if (!deleteByReview) {
+      return res.status(404).json({ error: "Review not found" });
+    }
+
+    res.status(200).json({ message: "Review deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete review" });
   }
 };
 const createReview = async (req, res) => {
@@ -302,4 +319,5 @@ module.exports = {
   handleNewAchievement,
   handleNewAnnouncement,
   getUsers,
+  deleteReview,
 };

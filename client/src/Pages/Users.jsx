@@ -21,7 +21,6 @@ const Users = () => {
   useEffect(() => {
     const getUsers = async () => {
       const data = await fetchUsers();
-      console.log("Fetched Users: ", data); // Log fetched users for debugging
       setUsersData(data);
     };
     getUsers();
@@ -38,7 +37,7 @@ const Users = () => {
           const greeting = user.sex === "female" ? "Ms." : "Mr.";
           return (
             <div key={user.id} className="user-box">
-              <img src={user.image || userPlaceholderImage} alt={user.username} className="user-image" />
+              <img src={user.image || userPlaceholderImage} alt={user.username} className="user-image_2" />
               <div className="user-info">
                 <h2>{greeting} {user.username}</h2>
                 <p>{user.position}</p>

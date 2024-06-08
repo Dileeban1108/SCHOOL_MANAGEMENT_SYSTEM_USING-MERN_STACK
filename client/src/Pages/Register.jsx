@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/Navbar";
+import users from "../assets/users.jpg";
 const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -16,21 +17,18 @@ const Register = () => {
   const [subject, setSubject] = useState("");
   const [position, setPosition] = useState("");
   const [sex, setSex] = useState("");
+  const [image, setImage] = useState(null);
 
   const positions = [
-    "none",
+    "Select Position",
     "principal",
     "vice principal",
     "teacher",
     "sport coach",
   ];
-  const sexes = [
-    "none",
-    "male",
-    "female",
-  ];
+  const sexes = ["Select Sex", "male", "female"];
   const grades = [
-    "none",
+    "Select Grade",
     "grade 1",
     "grade 2",
     "grade 3",
@@ -47,7 +45,7 @@ const Register = () => {
     "A/L Technology section",
   ];
   const subjects = [
-    "none",
+    "Select Subject",
     "O/L Maths",
     "O/L Science",
     "O/L English",
@@ -74,9 +72,34 @@ const Register = () => {
     "A/L Bio System Technology",
     "A/L Science For Technology",
   ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("phone", phone);
+    formData.append("address", address);
+    formData.append("grade", grade);
+    formData.append("position", position);
+    formData.append("subject", subject);
+    formData.append("sex", sex);
+
     try {
+      const uploadResponse = await axios.post(
+        "http://localhost:3001/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const imageUrl = uploadResponse.data.filePath;
+
       const response = await axios.post("http://localhost:3001/register", {
         username,
         email,
@@ -87,7 +110,9 @@ const Register = () => {
         position,
         subject,
         sex,
+        image: imageUrl,
       });
+
       if (response && response.data.success) {
         toast.success("Successfully created an account!");
         setTimeout(() => {
@@ -109,16 +134,48 @@ const Register = () => {
       <div className="r_main_container">
         <form className="r_form" onSubmit={handleSubmit}>
           <h2 className="r_title">Sign Up</h2>
+          <div className="signup_profile_section">
+            <img src={users} alt="" />
+            <label for="prof_image">Upload Your Image</label>
+          </div>
           <input
-            className="input-field"
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Enter Name"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="prof_image"
+            className="profile-image"
+            type="file"
+            accept="/image/"
+            onChange={(event) => {
+              const file = event.target.files[0];
+              if (file && file.type.substring(0, 5) === "image") {
+                setImage(file);
+              } else {
+                setImage(null);
+              }
+            }}
+            name="image"
             required
           />
+          <div className="input_section">
+            <input
+              className="input-field"
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter Name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <input
+              className="input-field"
+              type="number"
+              id="phone"
+              name="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Phone Number"
+              required
+            />
+          </div>
           <input
             className="input-field"
             type="email"
@@ -129,84 +186,82 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            className="input-field"
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-          />
-          <input
-            className="input-field"
-            type="number"
-            id="phone"
-            name="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Phone Number"
-            required
-          />
-          <input
-            className="input-field"
-            type="text"
-            id="address"
-            name="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            placeholder="Address"
-            required
-          />
-          <select
-            className="input-field-select"
-            value={position}
-            onChange={(e) => setPosition(e.target.value)}
-            required
-          >
-            {positions.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          <select
-            className="input-field-select"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            required
-          >
-            {subjects.map((subject, index) => (
-              <option key={index} value={subject}>
-                {subject}
-              </option>
-            ))}
-          </select>
-          <select
-            className="input-field-select"
-            value={grade}
-            onChange={(e) => setGrade(e.target.value)}
-            required
-          >
-            {grades.map((grade, index) => (
-              <option key={index} value={grade}>
-                {grade}
-              </option>
-            ))}
-          </select>
-          <select
-            className="input-field-select"
-            value={sex}
-            onChange={(e) => setSex(e.target.value)}
-            required
-          >
-            {sexes.map((sex, index) => (
-              <option key={index} value={sex}>
-                {sex}
-              </option>
-            ))}
-          </select>
+          <div className="input_section">
+            <input
+              className="input-field"
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+            />
+
+            <input
+              className="input-field"
+              type="text"
+              id="address"
+              name="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Address"
+              required
+            />
+          </div>
+
+          <div className="input_section">
+            <select
+              className="input-field-select"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+              required
+            >
+              {positions.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            <select
+              className="input-field-select"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              required
+            >
+              {subjects.map((subject, index) => (
+                <option key={index} value={subject}>
+                  {subject}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="input_section">
+            <select
+              className="input-field-select"
+              value={grade}
+              onChange={(e) => setGrade(e.target.value)}
+              required
+            >
+              {grades.map((grade, index) => (
+                <option key={index} value={grade}>
+                  {grade}
+                </option>
+              ))}
+            </select>
+            <select
+              className="input-field-select"
+              value={sex}
+              onChange={(e) => setSex(e.target.value)}
+              required
+            >
+              {sexes.map((sex, index) => (
+                <option key={index} value={sex}>
+                  {sex}
+                </option>
+              ))}
+            </select>
+          </div>
           <button type="submit" className="submit-btn_10">
             Sign Up
           </button>

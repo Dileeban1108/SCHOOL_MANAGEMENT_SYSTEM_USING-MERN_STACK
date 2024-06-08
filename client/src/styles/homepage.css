@@ -7,18 +7,25 @@
   background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  width: 100vw;
 }
+
 .sub_1 {
   display: flex;
-  height: 300px;
+  height: auto;
   width: 100%;
-  gap: 1rem;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
+
 .sub_2 {
   display: flex;
-  height: 300px;
+  height: auto;
   width: 100%;
-  gap: 1rem;
+  gap: 5px;
+   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .home-container {
@@ -29,16 +36,16 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-}
+ }
 
 .sub_1_1 {
-  height: 100%;
+  height: 300px;
   width: 60%;
   background: url("../assets/primary.jpg") no-repeat;
   background-position: center;
   background-size: cover;
   border-radius: 10px;
-  transition: transform 1s ease; /* Add transition for smooth rotation */
+  transition: transform 1s ease;
 }
 
 .sub_1_1:hover {
@@ -46,26 +53,25 @@
 }
 
 .sub_1_2 {
-  height: 100%;
-  width: 40%;
+  height: 300px;
+  width: 35%;
   background-color: #fafdff7b;
-  box-shadow: 0 0 10px black;  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
   color: #008cff;
+}
 
-}
 .sub_1_2 button {
-padding: 1rem 2rem;
+  padding: 1rem 2rem;
 }
-.sub_2_1 button {
-padding: 1rem 2rem;
-}
+
 .sub_2_1 {
-  height: 100%;
-  width: 40%;
+  height: 300px;
+  width: 35%;
   background-color: #fafdff7b;
   box-shadow: 0 0 10px black;
   border-radius: 10px;
@@ -75,8 +81,13 @@ padding: 1rem 2rem;
   display: flex;
   color: #008cff;
 }
+
+.sub_2_1 button {
+  padding: 1rem 2rem;
+}
+
 .sub_2_2 {
-  height: 100%;
+  height: 300px;
   background: url("../assets/secondary.jpg") no-repeat;
   background-position: center;
   background-size: cover;
@@ -84,6 +95,13 @@ padding: 1rem 2rem;
   border-radius: 10px;
   transition: transform 1s ease; /* Add transition for smooth rotation */
 }
+
 .sub_2_2:hover {
   transform: rotateY(180deg); /* Corrected transform property */
+}
+
+@media screen and (max-width: 800px) {
+  .sub_1_1, .sub_1_2, .sub_2_1, .sub_2_2 {
+    width: 100%;
+  }
 }

@@ -1,50 +1,76 @@
 import React, { useState, useEffect } from "react";
 import "../styles/event.css";
 import NavBar from "../components/Navbar";
-import ach1 from "../assets/ach1.jpg";
-import ach2 from "../assets/ach2.jpg";
-import ach3 from "../assets/ach3.jpg";
-import ach4 from "../assets/ach4.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 const Event = () => {
-  const images = [ach1, ach2, ach3, ach4];
+  const [events, setEvents] = useState([]);
   const [userRole, setUserRole] = useState(null);
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [subImageIndex, setSubImageIndex] = useState(1);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setMainImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000); // Change main image every 4 seconds
-
-    return () => clearInterval(interval); // Cleanup interval on component unmount
-  }, [images.length]);
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3001/auth/getEvents"
+        );
+        if (response.data) {
+          const formattedEvents = response.data.map((event) => ({
+            ...event,
+            image: event.image.replace(/\\/g, "/"),
+          }));
+          console.log("Events:", formattedEvents);
+          setEvents(formattedEvents);
+          if (formattedEvents.length > 1) {
+            setSubImageIndex(1); // Set initial subImageIndex to avoid being the same as mainImageIndex
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+    fetchEvents();
+  }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSubImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000); // Change sub image every 4 seconds
+    if (events.length > 1) {
+      const interval = setInterval(() => {
+        setMainImageIndex((prevIndex) => {
+          const newIndex = (prevIndex + 1) % events.length;
+          setSubImageIndex((newIndex + 1) % events.length);
+          return newIndex;
+        });
+      }, 4000); // Change image every 4 seconds
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
-  }, [images.length]);
+      return () => clearInterval(interval); // Cleanup interval on component unmount
+    }
+  }, [events.length]);
+
   const handleDelete = async (index) => {
-    let response = await axios.delete(
-      `http://localhost:3001/auth/deleteAnnouncement/${index}`
-    );
+    try {
+      const event = events[index];
+      await axios.delete("http://localhost:3001/auth/deleteEvent", {
+        data: { id: event._id }, // Ensure correct key is used
+      });
+      setEvents(events.filter((_, i) => i !== index));
+    } catch (error) {
+      console.error("There was an error deleting the announcement!", error);
+    }
   };
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
         const userinfo = JSON.parse(localStorage.getItem("userinfo"));
         if (userinfo && userinfo.email) {
           const email = userinfo.email;
-          let response = await axios.get(
+          const response = await axios.get(
             `http://localhost:3001/auth/getUser/${email}`
           );
-          if (response) {
+          if (response.data) {
             setUserRole("user");
           } else {
             console.log("User role not found in response");
@@ -59,32 +85,40 @@ const Event = () => {
 
     fetchUserDetails();
   }, []);
+
   return (
     <div className="event">
       <NavBar />
       <div className="eve_main">
         <div className="eve_sub_1">
-          <div
-            className="eve_img_main"
-            style={{ backgroundImage: `url(${images[mainImageIndex]})` }}
-          ></div>
+          {events.length > 0 && (
+            <img
+              src={events[mainImageIndex].image}
+              alt="Event"
+              className="eve_img_main"
+            />
+          )}
         </div>
         <div className="eve_sub_2">
-          <div
-            className="eve_img_sub"
-            style={{ backgroundImage: `url(${images[subImageIndex]})` }}
-          >
-            {userRole === "user" && (
-              <div
-                className="delete_icon_1"
-                onClick={() => {
-                  handleDelete(subImageIndex);
-                }}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </div>
-            )}
-          </div>
+          {events.length > 1 && (
+            <div>
+              {userRole === "user" && (
+                <div
+                  className="delete_icon"
+                  onClick={() => {
+                    handleDelete(subImageIndex);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </div>
+              )}
+              <img
+                src={events[subImageIndex].image}
+                alt="Event"
+                className="eve_img_sub"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

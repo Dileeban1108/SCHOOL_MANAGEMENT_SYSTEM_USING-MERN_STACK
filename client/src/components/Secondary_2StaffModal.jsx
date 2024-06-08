@@ -75,14 +75,13 @@ const PrimaryStaffModal = ({ show, onClose }) => {
                 <img
                   src={user.image || userPlaceholderImage}
                   alt={user.username}
-                  className="user-image_2"
                 />
                 <div className="user-info_2">
                   <h2>
                     {greeting} {user.username}
                   </h2>
                   <p>{user.position}</p>
-                  <p>{user.grade}</p>
+                  <p style={{fontSize:".9rem"}}>{user.grade}</p>
                   <p>{user.phone}</p>
                 </div>
               </div>

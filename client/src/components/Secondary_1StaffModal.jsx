@@ -77,7 +77,7 @@ const PrimaryStaffModal = ({ show, onClose }) => {
                     {greeting} {user.username}
                   </h2>
                   <p>{user.position}</p>
-                  <p>{user.grade}</p>
+                  <p style={{fontSize:".9rem"}}>{user.grade}</p>
                   <p>{user.phone}</p>
                 </div>
               </div>

@@ -1,14 +1,27 @@
+// routes/upload.js
+const express = require('express');
 const multer = require('multer');
+const path = require('path');
+
+const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, path.join(__dirname, '../../client/public/uploads/')); // Adjust the path to point to your React frontend
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
+    const name = Date.now() + '-' + file.originalname;
+    cb(null, name);
+  }
+});
+const upload = multer({ storage: storage });
+
+router.post('/', upload.single('image'), (req, res) => {
+  try {
+    res.status(200).json({ filePath: `/uploads/${req.file.filename}` });
+  } catch (err) {
+    res.status(400).send('Error uploading file.');
   }
 });
 
-const upload = multer({ storage: storage }).single('image');
-
-module.exports = upload;
+module.exports = router;

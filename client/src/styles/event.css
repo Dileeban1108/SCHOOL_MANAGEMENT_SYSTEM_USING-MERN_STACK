@@ -1,85 +1,69 @@
 .event {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 100px 0 50px 0;
+  padding: 140px 0 50px 0;
   background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  width: 100%;
-  height: 90vh;
-  gap: 30px;
+  height: 75vh;
 }
 
 .eve_main {
-  height: 100%;
-  width: 100%;
   display: flex;
-  justify-content: center;
-  padding: 1rem;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .eve_sub_1 {
-  height: 100%;
-  width: 60%;
+  width:65%;
+  height: 600px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin-bottom: 20px;
   align-items: center;
-  padding-left: 3rem;
-  flex-direction: column;
-}
-
-.eve_sub_2 {
-  height: 100%;
-  width: 40%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: column;
 }
 
 .eve_img_main {
-  width: 90%;
-  height: 70%;
   border-radius: 10px;
-  background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
+  width: 90%;
+  height: 80%;
+  box-shadow: 0 0 10px black;
+
+}
+
+.eve_sub_2 {
+  display: flex;
+  justify-content: center;
+  width: 35%;
+  height: 600px;
+  align-items: center;
+}
+
+.eve_sub_2 > div {
+  position: relative;
 }
 
 .eve_img_sub {
-  width: 80%;
-  height: 40%;
+  width: 400px;
+  height: 250px;
   border-radius: 10px;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+box-shadow: 0 0 10px black;
 }
-.eve_text_1 {
-  font-size: 6rem;
-  color: rgb(0, 157, 255);
-  font-weight: 800;
-}
-.eve_text_2 {
-  font-size: 5rem;
-  color: rgb(0, 157, 255);
-  font-weight: 800;
-}
-.delete_icon {
-  position: relative;
-  color: rgb(255, 0, 0);
-  font-size: 34px; 
+
+.delete_icon{
+  position: absolute;
+  color: rgb(255, 255, 255);
+  font-size: 24px;
   cursor: pointer;
-  text-align: center;
-  background-color: rgb(255, 255, 255);
+   text-align: center;
+  background-color: rgb(69, 67, 67);
   border-radius: 50%;
-  width: 60px;
+  width: 50px;
   height: 50px;
   display: flex;
   justify-content: center;
-  align-items: center ;
-  padding: 5px;
+  align-items: center;
+  padding: 4px; 
 }
