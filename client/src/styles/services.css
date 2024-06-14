@@ -1,6 +1,5 @@
 .services-container {
   overflow: hidden;
-  width: 100%;
   height: AUTO; /* Adjust height as needed */
   position: relative;
   display: flex;
@@ -11,13 +10,14 @@
   background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  padding: 150px 0 50px 0;
+  padding:10px 0;
 }
 
 .slider {
   display: flex;
   animation: scroll 35s linear infinite;
   gap: 2rem;
+  width: 100%;
 }
 
 .slide {
@@ -33,8 +33,27 @@
 }
 .bac-img{
 width: 80%;
-height: 100%;
+height: 80%;
 border-radius: 10px;
+}
+@media screen and (max-width: 772px) {
+  .bac-img{
+    width: 90%;
+    height: 70%;
+    border-radius: 10px;
+    }
+}
+@media screen and (max-width: 548px) {
+  .bac-img{
+    height: 60%;
+    border-radius: 10px;
+    }
+}
+@media screen and (max-width: 482px) {
+  .bac-img{
+    height: 50%;
+    border-radius: 10px;
+    }
 }
 .description {
   position: absolute;
@@ -57,28 +76,7 @@ border-radius: 10px;
     transform: translateX(calc(-100% * 2));
   }
 }
-.text2 h1 {
-  width: 90%;
-  font-size: 2rem;
-  background: linear-gradient(
-    90deg,
-    rgba(72, 72, 72, 0.8),
-    rgba(1, 162, 255, 0.8),
-    rgba(255, 1, 1, 0.8)
-  );
-  background-size: 200% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: shine 2s infinite linear;
-  border: solid;
-}
-.text2 {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .delete_icon {
   position: absolute;
   color: rgb(255, 255, 255);

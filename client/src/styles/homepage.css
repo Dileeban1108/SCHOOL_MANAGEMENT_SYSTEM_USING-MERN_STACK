@@ -7,7 +7,7 @@
   background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  width: 100vw;
+  width: 100%;
 }
 
 .sub_1 {

@@ -13,14 +13,14 @@
 
 .review-container {
   width: 90%;
-  height: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
-  gap: 3rem;
+  gap: 3.4rem;
   margin-top: 2rem;
   z-index: 1;
+  padding-left: .9rem;
 }
 
 .review-box {
@@ -101,23 +101,18 @@
   .review-box {
     width: 45%;
   }
-  .review-container {
-    flex-direction: column;
-  }
 }
 
 @media screen and (max-width: 768px) {
   .review-box {
     width: 60%;
   }
-  .review-container {
-    gap: 2rem;
-  }
+
 }
 
 @media screen and (max-width: 479px) {
   .review-box {
-    width: 90%;
+    width: 80%;
     height: auto;
     padding: 15px;
   }
@@ -128,3 +123,27 @@
     width: 60%;
   }
 }
+.text2 h1{
+  font-size: 2rem;
+  background-size: 200% 100%;
+  color: rgb(0, 123, 255);
+  text-align: left;
+width: 100%;
+}
+.text2{
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  @media screen and (max-width: 632px) {
+    .text2 h1 {
+      font-size: 1.5rem;
+    }
+  }
+  @media screen and (max-width: 479px) {
+    .text2 h1 {
+      font-size: 1.1rem;
+    }
+  }

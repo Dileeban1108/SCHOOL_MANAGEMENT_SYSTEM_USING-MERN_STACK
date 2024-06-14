@@ -81,7 +81,7 @@ const ReviewPage = ({userRole}) => {
     <section className="reviews">
       <ToastContainer />
       <div className="text2">
-        <h1>DON'T FORGRT TO COMMMENT</h1>
+        <h1>DON'T FORGRT TO COMMMENT ...</h1>
       </div>
       <form className="review-form" onSubmit={handleSubmit}>
         <div className="review-inputs">

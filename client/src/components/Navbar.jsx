@@ -140,16 +140,50 @@ const NavBar = ({
             <FontAwesomeIcon icon={faBars} />
           </div>
           <ul className={`nav-links ${showMobileMenu ? "active" : ""}`}>
-              <li>
-                <ScrollLink
-                  to={main}
-                  smooth={true}
-                  duration={500}
-                  onClick={toggleMobileMenu}
-                >
-                  Home
-                </ScrollLink>
+            {userRole === "user" && (
+              <li className="profile-icon" onClick={toggleProfile}>
+                <img
+                  src={userDetails.image}
+                  alt="profile"
+                  className="profile_img"
+                />
+                {showProfile && (
+                  <div className="profile-dropdown">
+                    <div className="name-email">
+                      <h3>{userDetails.username}</h3>
+                      <h5>{userDetails.email}</h5>
+                    </div>
+                    <p onClick={handleUpdateProfileClick}>
+                      Update Profile
+                      <FontAwesomeIcon icon={faEdit} />
+                    </p>
+                    <p onClick={handleAddEventClick}>
+                      Add New Event <FontAwesomeIcon icon={faPlus} />
+                    </p>
+                    <p onClick={handleAddAchievementClick}>
+                      Add New Achievement <FontAwesomeIcon icon={faPlus} />
+                    </p>
+                    <p onClick={handleAddAnnouncementClick}>
+                      Add New Announcement <FontAwesomeIcon icon={faPlus} />
+                    </p>
+                    <p onClick={handleLogout}>
+                      Logout
+                      <FontAwesomeIcon icon={faSignOutAlt} />
+                    </p>
+                  </div>
+                )}
               </li>
+            )}
+            <li>
+              <ScrollLink
+                to={main}
+                smooth={true}
+                duration={500}
+                onClick={toggleMobileMenu}
+              >
+                Home
+              </ScrollLink>
+            </li>
             <li>
               <ScrollLink
                 smooth={true}
@@ -182,21 +216,21 @@ const NavBar = ({
                     A/L Section <FontAwesomeIcon icon={faChevronRight} />
                     <div className="submenu"></div>
                   </RouterLink>
-                  {userRole !=="user" && (
-                  <RouterLink
-                    to="/login"
-                    style={{
-                      textDecoration: "none",
-                      color: "white",
-                      backgroundColor: "#007bff",
-                      borderRadius: "10px",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                    onClick={toggleMobileMenu}
-                  >
-                    LogIn
-                  </RouterLink>
+                  {userRole !== "user" && (
+                    <RouterLink
+                      to="/login"
+                      style={{
+                        textDecoration: "none",
+                        color: "white",
+                        backgroundColor: "#007bff",
+                        borderRadius: "10px",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                      onClick={toggleMobileMenu}
+                    >
+                      LogIn
+                    </RouterLink>
                   )}
                 </div>
               </ScrollLink>

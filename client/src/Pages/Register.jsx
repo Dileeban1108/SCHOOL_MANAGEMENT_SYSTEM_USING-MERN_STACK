@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/Navbar";
 import users from "../assets/users.jpg";
+
 const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -18,6 +19,7 @@ const Register = () => {
   const [position, setPosition] = useState("");
   const [sex, setSex] = useState("");
   const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null); // State to hold the image preview
 
   const positions = [
     "Select Position",
@@ -127,6 +129,17 @@ const Register = () => {
     }
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type.substring(0, 5) === "image") {
+      setImage(file);
+      setPreview(URL.createObjectURL(file)); // Set preview URL
+    } else {
+      setImage(null);
+      setPreview(null); // Reset preview
+    }
+  };
+
   return (
     <div className="r_container">
       <ToastContainer position="top-right" />
@@ -135,22 +148,15 @@ const Register = () => {
         <form className="r_form" onSubmit={handleSubmit}>
           <h2 className="r_title">Sign Up</h2>
           <div className="signup_profile_section">
-            <img src={users} alt="" />
-            <label for="prof_image">Upload Your Image</label>
+            <img src={preview || users} alt="Profile" /> {/* Show preview or default image */}
+            <label htmlFor="prof_image">Upload Your Image</label>
           </div>
           <input
             id="prof_image"
             className="profile-image"
             type="file"
-            accept="/image/"
-            onChange={(event) => {
-              const file = event.target.files[0];
-              if (file && file.type.substring(0, 5) === "image") {
-                setImage(file);
-              } else {
-                setImage(null);
-              }
-            }}
+            accept="image/*"
+            onChange={handleImageChange}
             name="image"
             required
           />

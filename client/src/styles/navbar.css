@@ -8,8 +8,7 @@
   font-size: 0.8rem;
   height: auto;
   top: 0;
-  left: 0;
-  right: 0;
+  width: 100vw;
   position: fixed;
   z-index: 1000;
   background-color: aliceblue;
@@ -32,24 +31,45 @@
   justify-content: space-around;
   padding: 10px 20px;
   background-color: #007bff;
-  width: 100%;
   color: #ddd;
   height: 20px;
+  font-size:16px;
+  width: 100%;
 }
-@media screen and (max-width: 800px) {
+
+@media screen and (max-width: 844px) {
+  .rcc-name {
+    font-size: 0.7rem;
+  }
+}
+@media screen and (max-width: 684px) {
   .rcc-name {
     font-size: 0.6rem;
   }
+  .contact-info {
+    font-size: 0.7rem;
+  }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 587px) {
+  .rcc-name {
+    font-size: 0.5rem;
+  }
   .contact-info {
     font-size: 0.6rem;
   }
 }
+@media screen and (max-width: 450px) {
+  .rcc-name {
+    font-size: 0.43rem;
+  }
+  .contact-info {
+    font-size: 0.5rem;
+  }
+}
+
 .contact-info {
   display: flex;
   align-items: center;
-  font-size: 1rem;
 }
 
 .rcc-name {
@@ -101,11 +121,11 @@
   display: none;
   position: absolute;
   top: 120%;
-  left: 0;
+  right: 0;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  width: 200px;
+  width: 300px;
   padding: 1rem;
 }
 
@@ -219,18 +239,25 @@
   font-size: 1.5rem;
 }
 
-@media screen and (max-width: 974px) {
+/* Default state */
+.nav-container ul li:nth-child(1) {
+  display: none;
+}
+
+/* Media query for screens less than 1098px */
+@media screen and (max-width: 1098px) {
   .nav-links {
     display: none;
     flex-direction: column;
+    background-color: #00000078;
     width: 40%;
-    background-color: #007bff;
     position: absolute;
     top: 100%;
     right: 0;
     padding: 1rem 0;
     font-size: 1rem;
     color: #fff;
+    height: 80vh;
   }
 
   .nav-links.active {
@@ -248,6 +275,21 @@
 
   .hamburger {
     display: block;
+  }
+  
+  .nav-container ul li:nth-child(10) {
+    display: none;
+  }
+
+  .nav-container ul li:nth-child(1) {
+    display: initial;
+  }
+}
+
+/* Media query for screens 1098px and above */
+@media screen and (max-width: 1098px) {
+  .nav-container ul li:nth-child(1) {
+    display: initial;
   }
 }
 

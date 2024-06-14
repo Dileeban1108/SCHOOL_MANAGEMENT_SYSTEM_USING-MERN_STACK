@@ -6,7 +6,7 @@
   font-family: sans-serif;
   background-size: cover;
   background-attachment: fixed;
-  height: auto;
+  height: 80vh;
   background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -32,7 +32,7 @@
 .r_main_container {
   background-color: aliceblue;
   box-shadow: 5px 8px 16px rgba(0, 0, 0, 0.1);
-  width: 40%;
+  width: 60%;
   transition: transform 0.3s, box-shadow 0.3s;
   border-radius: 10px;
   display: flex;
@@ -64,9 +64,9 @@
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 12px;
   transition: border-color 0.3s, box-shadow 0.3s;
-  width: 80%;
+  width:82%;
 }
 .input-field-select {
   border: 1px solid #d0d5dd;
@@ -74,7 +74,7 @@
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 10px;
   transition: border-color 0.3s, box-shadow 0.3s;
   width: 85%;
 }
@@ -149,4 +149,45 @@
   gap: 10px;
   align-items: center;
   justify-content: center;
+}
+@media screen and (max-width: 715px) {
+  .r_form {
+    font-size: 10px;
+  }
+  .submit-btn_10 {
+    font-size: 12px;
+  }
+  .link {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 973px) {
+  .input-field {
+    width: 81%;
+  }
+}
+@media screen and (max-width: 776px) {
+  .input-field {
+    width: 81%;
+  }
+}
+@media screen and (max-width: 737px) {
+  .input-field {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 598px) {
+  .input-field {
+    width: 79%;
+  }
+}
+@media screen and (max-width: 598px) {
+  .input-field {
+    width: 78%;
+  }
+}
+@media screen and (max-width: 438px) {
+  .input-field {
+    width: 76%;
+  }
 }

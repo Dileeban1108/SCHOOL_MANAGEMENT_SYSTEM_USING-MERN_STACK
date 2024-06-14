@@ -42,7 +42,7 @@ import school4 from "../assets/school4.jpg";
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+    }, 5000); 
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, [images.length]);
