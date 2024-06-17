@@ -22,11 +22,11 @@ A management system for schools built with the MERN stack.
    ```sh
    cd server
    npm install   
-   npm run dev
+   npm start
    
 ## Run the Backend
 1. Open a new terminal and Copy and Paste
    ```sh
    cd client
    npm install   
-   npm run dev
+   npm start
