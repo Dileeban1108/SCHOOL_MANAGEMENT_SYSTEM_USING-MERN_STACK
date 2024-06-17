@@ -17,19 +17,16 @@ A management system for schools built with the MERN stack.
    ```sh
    git clone https://github.com/Dileeban1108/SCHOOL_MANAGEMENT_SYSTEM_USING-MERN_STACK.git
 
-## install the node packaging manager
-1. Install
-   ```sh
-   npm install
-
 ## Run the frontend
-1. Copy and Paste
+1. Open a new terminal and Copy and Paste
    ```sh
    cd server
+   npm install   
    npm run dev
    
 ## Run the Backend
-1. Copy and Paste
+1. Open a new terminal and Copy and Paste
    ```sh
    cd client
+   npm install   
    npm run dev
