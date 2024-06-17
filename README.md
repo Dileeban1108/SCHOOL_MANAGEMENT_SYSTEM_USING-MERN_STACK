@@ -5,7 +5,6 @@ A management system for schools built with the MERN stack.
 ## Features
 - User authentication and authorization
 - Manage students, classes, and teachers
-- Real-time notifications and messaging
 
 ## Technologies Used
 - **MongoDB**: Database
