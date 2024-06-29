@@ -1,7 +1,7 @@
 .aboutus {
     background-color: aliceblue; /* Light background color */
     height: aut0; /* Minimum height to fill the screen */
-    padding:40px 0 3rem 0;
+    padding:130px 0 50px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,4 +30,5 @@
     font-weight: bold;
     color: rgb(0, 136, 255);
   }
+  
   

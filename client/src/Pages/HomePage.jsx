@@ -6,98 +6,75 @@ import MainPage from "./MainPage";
 import ServicesPage from "./ServicesPage";
 import AboutUs from "./About";
 import ReviewPage from "./ReviewPage";
-import HospitalListModal from "../components/HospitalListModel"; // Ensure the correct path
-import DoctorHome from "./DoctorHome";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Users from "./Users";
-import {
-  faArrowRight,
-  faMapMarkerAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 const HomePage = () => {
-  const [showAllHospitals, setShowAllHospitals] = useState(false);
   const [userRole, setUserRole] = useState(null);
-  const [doctorDetails, setDoctorDetails] = useState({});
-  const [hospitalsData, setHospitalsData] = useState([]);
-
-  useEffect(() => {
-    const fetchHospitals = async () => {
-      try {
-        const result = await axios.get(
-          "http://localhost:3001/auth/getHospitals"
-        );
-        setHospitalsData(result.data);
-      } catch (error) {
-        console.error("Failed to fetch hospitals:", error);
-      }
-    };
-
-    const fetchDoctorDetails = async () => {
-      try {
-        const userinfo = JSON.parse(localStorage.getItem("userinfo"));
-        const email = userinfo?.email;
-        if (email) {
-          const response = await axios.get(
-            `http://localhost:3001/auth/getDoctor/${email}`
-          );
-          setDoctorDetails(response.data);
-          setUserRole("doctor");
-        }
-      } catch (error) {
-        console.error("Failed to fetch doctor details", error);
-      }
-    };
-
-    fetchHospitals();
-    fetchDoctorDetails();
-  }, []);
+  const [userDetails, setUserDetails] = useState({});
+  const navigate = useNavigate();
 
   const handleClick = (hospitalName) => {
-    alert(`You clicked on ${hospitalName}`);
+    navigate("/primarysection");
   };
-
-  const handleViewMore = () => {
-    setShowAllHospitals(!showAllHospitals);
+  const handleClick1 = (hospitalName) => {
+    navigate("/secondarysection");
   };
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+        if (userinfo && userinfo.email) {
+          const email = userinfo.email;
+          let response = await axios.get(
+            `http://localhost:3001/auth/getUser/${email}`
+          );
+          if (response.data) {
+            setUserRole("user");
+            setUserDetails(response.data);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch user details", error);
+      }
+    };
 
+    fetchUserDetails();
+  }, []);
   return (
     <section className="home">
+      
       <Navbar
-        doctorhome="doctor-home"
         main="main"
         services="services"
         aboutus="aboutus"
         reviews="reviews"
-        hospitals="hospitals"
+        academics="academics"
         userRole={userRole}
-        doctorDetails={doctorDetails}
+        userDetails={userDetails}
       />
-      {userRole === "doctor" ? (
-        <DoctorHome setUserRole={setUserRole} id="doctor-home" />
-      ) : (
-        <MainPage id="main" />
-      )}
+      <MainPage id="main" />
       <Users />
 
-      <div className="main-home-container" id="hospitals">
+      <div className="main-home-container" id="academics">
         <div className="home-container">
-          <div className="text1">
-            <h1>ACADEMICS ...</h1>
-          </div>
-
           <div className="sub_1">
             <div className="sub_1_1"></div>
             <div className="sub_1_2">
               <h3>PRIMARY SECTION</h3>
-              <button>Learn More</button>
+              <button onClick={handleClick} className="learnmore">
+                Learn More
+              </button>
             </div>
           </div>
           <div className="sub_2">
             <div className="sub_2_1">
               <h3>SECONDARY SECTION</h3>
-              <button>Learn More</button>
+              <button className="learnmore" onClick={handleClick1}>
+                Learn More
+              </button>
             </div>
             <div className="sub_2_2"></div>
           </div>
@@ -105,9 +82,9 @@ const HomePage = () => {
       </div>
       <div className="empty"></div>
       <div className="ultracontainer">
-        {userRole !== "doctor" && <ServicesPage id="services" />}
+        <ServicesPage userRole={userRole} id="services" />
         <AboutUs id="aboutus" />
-        <ReviewPage id="reviews" />
+        <ReviewPage id="reviews" userRole={userRole}/>
         <Footer />
       </div>
     </section>

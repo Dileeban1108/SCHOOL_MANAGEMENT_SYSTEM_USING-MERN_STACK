@@ -1,73 +1,117 @@
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content_6 {
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 400px;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-  .modal-content_6 .inputs{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .modal-content_6 h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-  
-  .modal-content_6 form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .modal-content_6 label {
-    margin-bottom: 10px;
-    width: 30%;
-  }
-  
-  .modal-content_6 input,
-  .modal-content_6 select {
-    margin-bottom: 10px;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    width: 60%;
-  }
-  
-  .modal-content_6 button {
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .modal-content_6 button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-  }
-  .modal-content_6 button[type="submit"]:hover{
-    background-color: #003b7a;
-  }
-  .modal-content_6 button[type="button"] {
-    background-color: #6c757d;
-    color: white;
-  }
-  .modal-content_6 button[type="button"]:hover{
-    background-color: #505152;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  flex-direction: column;
+  gap: 10PX;
+}
+
+.modal-content_6 {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.modal-content_6 .inputs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.modal-content_6 h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #007bff;
+}
+
+.modal-content_6 form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content_6 label {
+  margin-bottom: 10px;
+  width: 30%;
+}
+
+.modal-content_6 input,
+.modal-content_6 select {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 60%;
+}
+
+.modal-content_6 .submit {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-content_6 .submit:hover {
+  background-color: #003b7a;
+}
+.cancel_button_2 {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(92, 94, 95);
+  color: rgb(255, 240, 240);
+  font-size: 1rem;
+  font-weight: 800;
+}
+.update_profile_section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  box-shadow: 0 0 1px rgb(109, 109, 109);
+  padding: 10px;
+  border-radius: 10px;
+}
+.update_profile_section img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.update_profile_section label{
+  background-color: #007bff;
+  padding: 10px;
+  border-radius: 5px;
+  color: aliceblue;
+  cursor: pointer;
+  position: relative;
+  top: 20px;
+  right: 15px;
+}
+.update_profile_section label{
+  background-color: #4a95eb;
+  padding: 5px;
+  border-radius: 5px;
+  color: aliceblue;
+  cursor: pointer;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 20px;
+}

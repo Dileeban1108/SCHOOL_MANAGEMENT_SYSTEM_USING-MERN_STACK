@@ -1,0 +1,112 @@
+.announcement {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 140px 0 50px 0;
+  background: url("../assets/back1.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  height: auto;
+  gap: 30px;
+}
+
+.ann_main {
+  height: 65vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.ann_text {
+  height: 20%;
+  width: 80%;
+  justify-content: right;
+  align-items: center;
+  display: flex;
+}
+
+.ann_img {
+  height: 100%;
+  border-radius: 10px;
+  width: 60%;
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+}
+.ann_img img {
+  height: 100%;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 0 10px black;
+}
+
+.ann_sub_2 {
+  height: 100%;
+  width: 10%;
+  font-size: 5rem;
+  display: flex;
+  justify-content: space-around;
+  font-weight: 800;
+  color: rgb(0, 136, 255);
+  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ann_sub_3 {
+  height: 100%;
+  width: 80%;
+  font-weight: 800;
+  color: rgb(0, 136, 255);
+  gap: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  font-size: 4rem;
+}
+
+.all_announcements {
+  height: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+  overflow-x: scroll;
+  width: 90%;
+  padding: 1rem;
+}
+
+.announcement_img_box {
+  flex: 0 0 auto;
+  height: 300px;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.announcement_img_box img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.delete_icon {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  font-size: 24px;
+  cursor: pointer;
+   text-align: center;
+  background-color: rgb(69, 67, 67);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px; 
+}

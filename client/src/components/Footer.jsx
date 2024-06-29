@@ -11,8 +11,8 @@ const Footer = () => {
         <div className="container_1">
           <h5 className="footer__heading">Contact Us</h5>
           <ul className="icons-list">
-            <h3>Email:example@gmail.com</h3>
-            <h3>Phone:+94 1123 34 24</h3>
+            <h5>Email:example@gmail.com</h5>
+            <h5>Phone:+94 1123 34 24</h5>
             <NavLink to="">
               <FaFacebook />
             </NavLink>

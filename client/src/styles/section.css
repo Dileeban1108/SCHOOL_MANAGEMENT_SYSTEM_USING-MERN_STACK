@@ -1,0 +1,209 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 0 50px 0;
+  background: url("../assets/back1.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  height: auto;
+  gap: 30px;
+}
+.section_main {
+  height: 90vh;
+  width: 95%;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  align-items: center;
+}
+
+.section_img_main {
+  width: 70%;
+  height: 70%;
+  border-radius: 10px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background: url("../assets/primary.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.section_text_2 {
+  width: 20%;
+  height: 70%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 0 5px rgb(84, 83, 83);
+  background-color: rgba(240, 248, 255, 0.726);
+  color: rgb(0, 136, 255);
+}
+.learnmore {
+  background-color: rgb(0, 145, 255);
+  border: none;
+  border-radius: 10px;
+  color: aliceblue;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.location {
+  display: flex;
+  font-size: 1rem;
+  color: red;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  box-shadow: 0 0 3px black;
+  padding: .5rem;
+  border-radius: 10px;
+}
+.phone {
+  display: flex;
+  font-size: 1rem;
+  color: rgb(2, 202, 22);
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  box-shadow: 0 0 3px black;
+  padding: .5rem;
+  border-radius: 10px;
+}
+.phone h2 {
+  color: rgb(0, 179, 255);
+  font-size: 1.3rem;
+}
+.location h2 {
+  color: rgb(0, 179, 255);  font-size: 1.3rem;
+  font-size: 1.1rem;
+
+}
+.application_1{
+    height: 90vh;
+width: 90%;
+  }
+  .application-image_1 {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    background: url("../assets/application.png") no-repeat;
+    background-size: cover;
+  }
+  .application-image_1:hover {
+    .app_image_1 {
+      display: block;
+    }
+  }
+  .app_image_1 {
+    background: rgba(0, 0, 0, 0.493);
+    width: 100%;
+    height: 100%;
+    color: aliceblue;
+    font-size: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    position: relative;
+    padding-top: 250px;
+    text-decoration: none;
+  }
+  .application_header_1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 800;
+    color: rgb(0, 132, 255);
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+  .modal-content_2 {
+    background-color: aliceblue;
+    border-radius: 10px;
+    width: 88%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 80%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .modal-content_2 h2 {
+    font-size: 1rem;
+    color: rgb(0, 136, 255);
+  }
+  .modal-content_2 p {
+    font-size: 1rem;
+    color: rgb(0, 136, 255);
+  }
+  
+  .modal-content_2 ul {
+    list-style: none;
+    width: 90%;
+    height: auto;
+    display: flex;
+    border-radius: 10px;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem;
+    gap: 20px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin: 1rem;
+    height: 300px;
+  }
+  .modal-content_2 input {
+    width: 90%;
+    height: 40px;
+    text-align: center;
+    border: none;
+    background-color: rgb(215, 222, 222);
+    border-radius: 30px 0 0 30px;
+  }
+  .modal-content_2 .staff_2 {
+    height: auto;
+    padding: 1rem;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+    border-radius: 10px;
+    overflow-x: scroll;
+    margin: 1rem;
+    gap: 30px;
+  }
+.user_box_2{
+  display: flex;
+  justify-content: center;
+  align-items:center ;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 0 2px rgb(108, 107, 107);
+border-radius: 10px;
+padding: 1rem;
+}
+.user_box_2 img{
+  width: 150px;
+  height: 150px;
+}
+.user-info_2{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center   ;
+}
+.modal-content_2 .staff_header{
+  font-size: 2rem;
+}

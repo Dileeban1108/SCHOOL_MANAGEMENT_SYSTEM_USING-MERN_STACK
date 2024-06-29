@@ -1,58 +1,60 @@
-const Doctor=require('../models/Doctor')
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-const handleNewDoctor = async (req, res) => {
-  const {username,email, password,phone,address,regnumber,hospital,specialization} = req.body;
-  if (!username || !password || !email || !regnumber  ||!specialization)
-    return res
-      .status(400)
-      .json({ message: "email, username and password is required" });
+const handleNewUser = async (req, res) => {
+  const { username, email, password, phone, address, position, grade, sex, image,subject } = req.body;
+  if (!username || !password || !email || !position || !grade) {
+    return res.status(400).json({ message: "email, username and password is required" });
+  }
 
-  const duplicateLecturer=await Doctor.findOne({email:email}).exec()
-  if (duplicateLecturer) return res.status(409).json({ message: "email is already exist" });
+  const duplicateUser = await User.findOne({ email: email }).exec();
+  if (duplicateUser) {
+    return res.status(409).json({ message: "email is already exist" });
+  }
 
   try {
-    const hashedPWD = await bcrypt.hash(password, 10)
+    const hashedPWD = await bcrypt.hash(password, 10);
 
-    const newDoctor = await Doctor.create({
-       "username": username,
-       "email":email,
-       "password": hashedPWD,
-       "phone":phone,
-       "address":address,
-       "regnumber":regnumber,
-       "hospital":hospital,
-       "specialization":specialization,
-    })
+    const newUser = await User.create({
+      username,
+      email,
+      password: hashedPWD,
+      phone,
+      address,
+      position,
+      grade,
+      sex,
+      image,
+      subject,
+    });
 
-    console.log(newDoctor)
-
-    res.status(200).json({ success: `new doctor with ${username} created` });
+    res.status(200).json({ success: `new user created` });
   } catch (error) {
     res.status(500).json({ error: `${error.message}` });
   }
 };
-const updateDoctor = async (req, res) => {
+
+const updateUser = async (req, res) => {
   try {
-    const {username,email, password,phone,address,regnumber,hospital,specialization} = req.body;
+    const { username, email, password, phone, address, position, grade, sex, image,subject } = req.body;
 
     const query = { email };
 
-    const updatedDoctor = await Doctor.findOneAndUpdate(
+    const updatedUser = await User.findOneAndUpdate(
       query,
-      { password,phone,address,regnumber,hospital,specialization,username },
+      { password, phone, address, grade, position, username, sex, image ,subject },
       { new: true }
     );
 
-    if (!updatedDoctor) {
-      return res.status(404).json({ error: "Hospital not found" });
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
     }
 
-    res.status(200).json(updatedDoctor);
+    res.status(200).json(updatedUser);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to update hospital" });
+    res.status(500).json({ error: "Failed to update profile" });
   }
 };
 
-module.exports = { handleNewDoctor,updateDoctor };
+
+module.exports = { handleNewUser, updateUser };

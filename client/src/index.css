@@ -6,17 +6,8 @@
 .text1 h1{
   width: 100%;
   font-size: 2rem;
-  background: linear-gradient(
-    90deg,
-    rgba(72, 72, 72, 0.8),
-    rgba(1, 162, 255, 0.8),
-    rgba(255, 1, 1, 0.8)
-  ); 
   background-size: 200% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: shine 3s infinite linear;
+  color: rgb(0, 123, 255);
 
 }
 .text1{

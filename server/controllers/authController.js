@@ -1,8 +1,7 @@
-const Doctor = require("../models/Doctor");
-const Hospital = require("../models/Hospital");
-const Disease = require("../models/Disease");
-const HealthTip = require("../models/HealthTip");
-const BookDoctor = require("../models/BookedDocter");
+const User = require("../models/User");
+const Announcement = require("../models/Announcement");
+const Achievement = require("../models/Achievement");
+const Event = require("../models/Event");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Review=require("../models/Review")
@@ -13,7 +12,7 @@ const handleLogin = async (req, res) => {
       .status(400)
       .json({ message: "email and passwords are required" });
 
-  const foundUser = await Doctor.findOne({ email: email }).exec();
+  const foundUser = await User.findOne({ email: email }).exec();
   if (!foundUser) return res.sendStatus(401);
   const matchPassword = await bcrypt.compare(password, foundUser.password);
   console.log("bcrypt password:", matchPassword);
@@ -21,7 +20,7 @@ const handleLogin = async (req, res) => {
     const accessToken = jwt.sign(
       {
         userInfo: { username: foundUser.username },
-        issuedAt: Date.now(), // Include timestamp indicating when the token was issued
+        issuedAt: Date.now(), 
       },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "20s" }
@@ -48,39 +47,91 @@ const handleLogin = async (req, res) => {
     res.sendStatus(401);
   }
 };
+const handleNewAnnouncement = async (req, res) => {
+  const { description, image } = req.body;
+  if (!description || !image ) {
+    return res.status(400).json({ message: "something is required" });
+  }
 
-const handleNewHospital = async (req, res) => {
-  const { hospitalname, phone, address } = req.body;
-  if (!hospitalname || !phone || !address)
-    return res
-      .status(400)
-      .json({ message: "hospitalname,address and contact is required" });
-
-  const duplicateHospital = await Hospital.findOne({
-    hospitalname: hospitalname,
-  }).exec();
-  if (duplicateHospital)
-    return res.status(409).json({ message: "hospital name is already exist" });
+  const duplicateImg = await Announcement.findOne({ image: image }).exec();
+  if (duplicateImg) {
+    return res.status(409).json({ message: "image is already exist" });
+  }
 
   try {
-    const newHospital = await Hospital.create({
-      hospitalname: hospitalname,
-      phone: phone,
-      address: address,
+
+    await Announcement.create({
+      image,
+      description,
     });
 
-    res
-      .status(200)
-      .json({ success: `new hospital with ${hospitalname} created` });
+    res.status(200).json({ success: ` created` });
   } catch (error) {
     res.status(500).json({ error: `${error.message}` });
   }
 };
-const getHospitals = async (req, res) => {
+
+const handleNewAchievement = async (req, res) => {
+  const { description, image} = req.body;
+  if (!description || !image) {
+    return res.status(400).json({ message: "is required" });
+  }
+
+  const duplicateImage = await Achievement.findOne({ image: image }).exec();
+  if (duplicateImage) {
+    return res.status(409).json({ message: "already exist" });
+  }
+
+  try {
+
+    await Achievement.create({
+      image,
+      description,
+    });
+
+    res.status(200).json({ success: `created` });
+  } catch (error) {
+    res.status(500).json({ error: `${error.message}` });
+  }
+};
+
+const handleNewEvent = async (req, res) => {
+  const { description, image } = req.body;
+  if (!description || !image ) {
+    return res.status(400).json({ message: "something is required" });
+  }
+
+  const duplicateImg = await Event.findOne({ image: image }).exec();
+  if (duplicateImg) {
+    return res.status(409).json({ message: "image is already exist" });
+  }
+
+  try {
+
+    await Event.create({
+      image,
+      description,
+    });
+
+    res.status(200).json({ success: ` created` });
+  } catch (error) {
+    res.status(500).json({ error: `${error.message}` });
+  }
+};
+
+const getAnnouncements = async (req, res) => {
+  try {
+    const announcements = await Announcement.find();
+    res.status(200).json(announcements);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching announcements', error: error.message });
+  }
+};
+const getAchievements = async (req, res) => {
   try {
     const filters = req.body;
 
-    const result = await Hospital.find(filters);
+    const result = await Achievement.find(filters);
 
     res.status(200).json(result);
   } catch (error) {
@@ -88,109 +139,94 @@ const getHospitals = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch hospitals" });
   }
 };
-const updateHospital = async (req, res) => {
+const getEvents = async (req, res) => {
   try {
-    const { hospitalname, address, phone } = req.body;
-
-    const query = { hospitalname };
-
-    const updatedHospital = await Hospital.findOneAndUpdate(
-      query,
-      { address, phone },
-      { new: true }
-    );
-
-    if (!updatedHospital) {
-      return res.status(404).json({ error: "Hospital not found" });
-    }
-
-    res.status(200).json(updatedHospital);
+    const filters = req.body;
+    const result = await Event.find(filters);
+    res.status(200).json(result);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to update hospital" });
+    res.status(500).json({ error: "Failed to fetch hospitals" });
   }
 };
-
-const deleteHospital = async (req, res) => {
+const deleteAnnouncement = async (req, res) => {
   try {
-    const { hospitalname } = req.body;
+    const { index } = req.body;
 
-    const query = { hospitalname };
+    const query = { index };
 
-    const deletedHospital = await Hospital.findOneAndDelete(query);
+    const deleteByIndex = await Announcement.findOneAndDelete(query);
 
-    if (!deletedHospital) {
-      return res.status(404).json({ error: "Hospital not found" });
+    if (!deleteByIndex) {
+      return res.status(404).json({ error: " not found" });
     }
 
-    res.status(200).json({ message: "Hospital deleted successfully" });
+    res.status(200).json({ message: "deleted successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to delete hospital" });
+    res.status(500).json({ error: "Failed to delete" });
   }
 };
-
-const handleNewDisease = async (req, res) => {
-  const { diseasename, description, symptoms, treatment } = req.body;
-  if (!diseasename || !description || !symptoms || !treatment)
-    return res
-      .status(400)
-      .json({ message: "hospitalname,address and contact is required" });
-
-  const duplicateDisease = await Disease.findOne({
-    diseasename: diseasename,
-  }).exec();
-  if (duplicateDisease)
-    return res.status(409).json({ message: "disease is already exist" });
-
+const deleteAchievement = async (req, res) => {
   try {
-    const newDisease = await Disease.create({
-      diseasename: diseasename,
-      description: description,
-      symptoms: symptoms,
-      treatment: treatment,
-    });
+    const { index } = req.body;
 
-    res
-      .status(200)
-      .json({ success: `new Disease with ${diseasename} created` });
+    const query = { index };
+
+    const deleteByIndex = await Achievement.findOneAndDelete(query);
+
+    if (!deleteByIndex) {
+      return res.status(404).json({ error: " not found" });
+    }
+
+    res.status(200).json({ message: "deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: `${error.message}` });
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete" });
   }
 };
-const handleNewHealthTip = async (req, res) => {
-  const { healthtipname, username, description } = req.body;
-  if (!healthtipname) return res.status(400).json({ message: "required" });
-
-  const duplicateHealthTip = await Disease.findOne({
-    healthtipname: healthtipname,
-  }).exec();
-  if (duplicateHealthTip)
-    return res.status(409).json({ message: "already exist" });
-
+const deleteEvent = async (req, res) => {
   try {
-    const newHealthTip = await HealthTip.create({
-      healthtipname: healthtipname,
-      username: username,
-      description: description,
-    });
+    const { index } = req.body;
 
-    res
-      .status(200)
-      .json({ success: `new Disease with ${healthtipname} created` });
+    const query = { index };
+
+    const deleteByIndex = await Event.findOneAndDelete(query);
+
+    if (!deleteByIndex) {
+      return res.status(404).json({ error: " not found" });
+    }
+
+    res.status(200).json({ message: "deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: `${error.message}` });
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete" });
+  }
+};
+const deleteReview = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleteByReview = await Review.findByIdAndDelete(id);
+
+    if (!deleteByReview) {
+      return res.status(404).json({ error: "Review not found" });
+    }
+
+    res.status(200).json({ message: "Review deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete review" });
   }
 };
 const createReview = async (req, res) => {
-  const {name, review ,rating} = req.body;
+  const {name, review } = req.body;
   if (!review) return res.status(400).json({ message: "required" });
 
   try {
     await Review.create({
       name: name,
       review: review,
-      rating:rating,
     });
 
     res
@@ -198,45 +234,6 @@ const createReview = async (req, res) => {
       .json({ success: `new review created` });
   } catch (error) {
     res.status(500).json({ error: `${error.message}` });
-  }
-};
-const bookDoctor = async (req, res) => {
-  const { doctorname, username, email, age, address, regnumber } = req.body;
-  if (!doctorname || !username || !email || !age || !address || !regnumber)
-    return res.status(400).json({ message: "something went wrong" });
-
-  const duplicatePatient = await BookDoctor.findOne({
-    username: username,
-    doctorname:doctorname
-  }).exec();
-  if (duplicatePatient)
-    return res.status(409).json({ message: "already exist" });
-
-  try {
-    const bookDoctor = await BookDoctor.create({
-      doctorname: doctorname,
-      username: username,
-      email: email,
-      age: age,
-      address: address,
-      regnumber: regnumber,
-    });
-
-    res.status(200).json({ success: `new Book with ${doctorname} created` });
-  } catch (error) {
-    res.status(500).json({ error: `${error.message}` });
-  }
-};
-const getPatients = async (req, res) => {
-  try {
-    const filters = req.body;
-
-    const result = await BookDoctor.find(filters);
-
-    res.status(200).json(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch" });
   }
 };
 const getReviews = async (req, res) => {
@@ -251,106 +248,53 @@ const getReviews = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch" });
   }
 };
-const getPatientsByDoctorName = async (req, res) => {
-  try {
-    const { doctorname } = req.params;
-    const additionalFilters = req.body;
 
-    const query = { doctorname, ...additionalFilters };
-
-    const result = await BookDoctor.findOne(query);
-    res.status(200).json(result);
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch" });
-  }
-};
-const getDisease = async (req, res) => {
+const getUsers = async (req, res) => {
   try {
     const filters = req.body;
-
-    const result = await Disease.find(filters);
-
+    const result = await User.find(filters);
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch" });
   }
 };
-
-const updateDisease = async (req, res) => {
-  try {
-    const { diseasename, description, symtems, treatment } = req.body;
-
-    const query = { diseasename };
-    const updatedDisease = await Disease.findOneAndUpdate(
-      diseasename,
-      { description, symtems, treatment },
-      { new: true }
-    );
-    if (!updatedDisease) {
-      return res.status(404).json({ error: "Disease  not found" });
-    }
-    res.status(200).json(updatedDisease);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to update" });
-  }
-};
-
-const deleteDisease = async (req, res) => {
-  try {
-    const { diseasename } = req.body;
-    const query = { diseasename };
-
-    const deleteDisease = await Disease.findByOneAndDelete(query);
-    if (!deleteDisease) {
-      return res.status(404).json({ error: "disease not found" });
-    }
-    res.status(200).json({ message: " deleted successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to delete" });
-  }
-};
-const deleteHealthTip = async (req, res) => {
-  try {
-    const { healthtipname } = req.body;
-    const query = { healthtipname };
-
-    const deleteHealthTip = await HealthTip.findByOneAndDelete(query);
-    if (!deleteHealthTip) {
-      return res.status(404).json({ error: " not found" });
-    }
-    res.status(200).json({ message: " deleted successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to delete" });
-  }
-};
-const getDoctorByEmail = async (req, res) => {
+const getUserByEmail = async (req, res) => {
   try {
     const { email } = req.params;
     const additionalFilters = req.body;
 
     const query = { email, ...additionalFilters };
 
-    const result = await Doctor.findOne(query);
+    const result = await User.findOne(query);
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch" });
   }
 };
-const getDoctorByRole = async (req, res) => {
+const getUserByGrade = async (req, res) => {
   try {
-    const { specialization } = req.params;
+    const { grade } = req.params;
     const additionalFilters = req.body;
 
-    const query = { specialization, ...additionalFilters };
+    const query = { grade, ...additionalFilters };
 
-    const result = await Doctor.findOne(query);
+    const result = await User.findOne(query);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch" });
+  }
+};
+const getUsersByPosition = async (req, res) => {
+  try {
+    const { position} = req.params;
+    const additionalFilters = req.body;
+
+    const query = { position, ...additionalFilters };
+
+    const result = await User.findOne(query);
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
@@ -360,21 +304,20 @@ const getDoctorByRole = async (req, res) => {
 
 module.exports = {
   handleLogin,
-  handleNewDisease,
-  deleteDisease,
-  deleteHospital,
-  getHospitals,
-  getDisease,
-  handleNewHospital,
-  updateDisease,
-  updateHospital,
-  getDoctorByEmail,
-  handleNewHealthTip,
-  deleteHealthTip,
-  bookDoctor,
-  getDoctorByRole,
-  getPatients,
-  getPatientsByDoctorName,
+  getUsersByPosition,
+  getUserByGrade,
+  getUserByEmail,
+  deleteEvent,
+  deleteAchievement,
   createReview,
-  getReviews
+  getReviews,
+  deleteAnnouncement,
+  getEvents,
+  getAchievements,
+  handleNewEvent,
+  getAnnouncements,
+  handleNewAchievement,
+  handleNewAnnouncement,
+  getUsers,
+  deleteReview,
 };
