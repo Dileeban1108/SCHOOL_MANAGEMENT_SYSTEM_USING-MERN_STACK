@@ -64,7 +64,7 @@
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 20px;
-  font-size: 12px;
+  font-size: 15px;
   transition: border-color 0.3s, box-shadow 0.3s;
   width:82%;
 }
@@ -149,6 +149,11 @@
   gap: 10px;
   align-items: center;
   justify-content: center;
+}
+@media screen and (max-width: 600px) {
+  .r_main_container {
+    width: 90%;
+  }
 }
 @media screen and (max-width: 715px) {
   .r_form {

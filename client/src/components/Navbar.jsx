@@ -3,6 +3,8 @@ import "../styles/navbar.css";
 import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import userPlaceholderImage from '../assets/users.jpg';
+
 import {
   faSignOutAlt,
   faEdit,
@@ -174,6 +176,16 @@ const NavBar = ({
                 )}
               </li>
             )}
+            <li>
+              <RouterLink
+                to="/primary_application"
+                style={{ textDecoration: "none" }}
+                className="students-btn"
+              >
+                Students
+              </RouterLink>
+            </li>
+
             <li>
               <ScrollLink
                 to={main}
