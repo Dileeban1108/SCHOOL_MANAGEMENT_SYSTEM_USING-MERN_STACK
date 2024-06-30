@@ -118,7 +118,6 @@ const handleNewEvent = async (req, res) => {
     res.status(500).json({ error: `${error.message}` });
   }
 };
-
 const getAnnouncements = async (req, res) => {
   try {
     const announcements = await Announcement.find();

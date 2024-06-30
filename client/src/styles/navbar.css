@@ -15,7 +15,12 @@
   box-shadow: 0 0 10px black;
   flex-direction: column;
 }
-
+.students-btn{
+  background-color: #007bff;
+  color: #f0f0f0;
+  padding: 8px;
+  border-radius: 5px;
+}
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -33,16 +38,21 @@
   background-color: #007bff;
   color: #ddd;
   height: 20px;
-  font-size:16px;
   width: 100%;
 }
+.rcc-name {
+  font-size: 13px;
+}
+.contact-info{
+  font-size: 16px;
 
-@media screen and (max-width: 844px) {
+}
+@media screen and (max-width: 920px) {
   .rcc-name {
     font-size: 0.7rem;
   }
 }
-@media screen and (max-width: 684px) {
+@media screen and (max-width: 800px) {
   .rcc-name {
     font-size: 0.6rem;
   }
@@ -50,7 +60,7 @@
     font-size: 0.7rem;
   }
 }
-@media screen and (max-width: 587px) {
+@media screen and (max-width: 650px) {
   .rcc-name {
     font-size: 0.5rem;
   }
@@ -58,9 +68,9 @@
     font-size: 0.6rem;
   }
 }
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 515px) {
   .rcc-name {
-    font-size: 0.43rem;
+    font-size: 0.4rem;
   }
   .contact-info {
     font-size: 0.5rem;
@@ -250,14 +260,14 @@
     display: none;
     flex-direction: column;
     background-color: #00000078;
-    width: 40%;
+    width: 50%;
     position: absolute;
     top: 100%;
     right: 0;
     padding: 1rem 0;
     font-size: 1rem;
     color: #fff;
-    height: 80vh;
+    height: 90vh;
   }
 
   .nav-links.active {
