@@ -5,7 +5,7 @@ A management system for schools built with the MERN stack.
 ## Features
 - User authentication and authorization
 - Handle events ,announcement and achievements
-- Pricipal or vice pricipal can add students while all other staffs can update or delete students
+- Principal or vice principal can add students while all other staffs can update or delete students
 - Principal or vice principal can delete announcements ,achievements and events
 - Manage students, classes, and teachers
  **(login as a principal or viceprincipal to view more functionalities)**
