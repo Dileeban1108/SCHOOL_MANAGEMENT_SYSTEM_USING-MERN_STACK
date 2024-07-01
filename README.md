@@ -20,7 +20,7 @@ A management system for schools built with the MERN stack.
 1. Clone the repository:
    ```sh
    git clone https://github.com/Dileeban1108/SCHOOL_MANAGEMENT_SYSTEM_USING-MERN_STACK.git
-
+**note:if you cannot clone the repositaory please download thw zip**
 ## Run the frontend
 1. Open a new terminal and Copy and Paste
    ```sh
