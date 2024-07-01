@@ -3,7 +3,6 @@ import "../styles/navbar.css";
 import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import userPlaceholderImage from '../assets/users.jpg';
 
 import {
   faSignOutAlt,
@@ -18,6 +17,7 @@ import {
 import ProfileModal from "./ProfileModal";
 import PrimaryStaffModal from "./PrimaryStaffModal";
 import Secondary_1StaffModal from "./Secondary_1StaffModal";
+import StudentModal from "./StudentModal";
 import Secondary_2StaffModal from "./Secondary_2StaffModal.jsx";
 import EventModal from "./AddNewEventModal";
 import AnnouncementModal from "./AddNewAnnouncementModal";
@@ -45,6 +45,7 @@ const NavBar = ({
     useState(false);
   const [showSecondary_2StaffModal, setShowSecondary_2StaffModal] =
     useState(false);
+  const [showStudentModal, setShowStudentModal] = useState(false);
   const navigate = useNavigate();
 
   const toggleProfile = () => {
@@ -83,6 +84,9 @@ const NavBar = ({
   const handleSecondary_2ModalClick = () => {
     setShowSecondary_2StaffModal(true);
   };
+  const handleStudentModalClick = () => {
+    setShowStudentModal(true);
+  };
 
   const handleCloseProfileModal = () => {
     setShowProfileModal(false);
@@ -115,6 +119,9 @@ const NavBar = ({
   const handleSecondary_1StaffModalClose = () => {
     setShowSecondary_1StaffModal(false);
   };
+  const handleStudentModalClose = () => {
+    setShowStudentModal(false);
+  };
 
   const handleSecondary_2StaffModalClose = () => {
     setShowSecondary_2StaffModal(false);
@@ -141,7 +148,7 @@ const NavBar = ({
           <div className="hamburger" onClick={toggleMobileMenu}>
             <FontAwesomeIcon icon={faBars} />
           </div>
-          <ul className={`nav-links ${showMobileMenu ? "active" : ""}`}>
+          <ul className={`nav-links ${showMobileMenu ? "active" : ""}`} >
             {userRole === "user" && (
               <li className="profile-icon" onClick={toggleProfile}>
                 <img
@@ -176,15 +183,19 @@ const NavBar = ({
                 )}
               </li>
             )}
-            <li>
-              <RouterLink
-                to="/primary_application"
-                style={{ textDecoration: "none" }}
-                className="students-btn"
-              >
-                Students
-              </RouterLink>
-            </li>
+            {userRole === "user" &&
+              (userDetails.position === "principal" ||
+                userDetails.position === "vice principal") && (
+                <li>
+                  <RouterLink
+                    style={{ textDecoration: "none" }}
+                    className="students-btn"
+                    onClick={handleStudentModalClick}
+                  >
+                    Students
+                  </RouterLink>
+                </li>
+              )}
 
             <li>
               <ScrollLink
@@ -196,6 +207,7 @@ const NavBar = ({
                 Home
               </ScrollLink>
             </li>
+
             <li>
               <ScrollLink
                 smooth={true}
@@ -395,6 +407,7 @@ const NavBar = ({
         show={showSecondary_1StaffModal}
         onClose={handleSecondary_1StaffModalClose}
       />
+      <StudentModal show={showStudentModal} onClose={handleStudentModalClose} />
       <Secondary_2StaffModal
         show={showSecondary_2StaffModal}
         onClose={handleSecondary_2StaffModalClose}

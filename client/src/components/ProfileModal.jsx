@@ -12,7 +12,7 @@ const ProfileModal = ({ show, onClose, userDetails }) => {
   const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(users);
-  
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -106,51 +106,70 @@ const ProfileModal = ({ show, onClose, userDetails }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.type.startsWith("image/")) {
+    if (file && file.type.substring(0, 5) === "image") {
       setProfileImage(file);
       setImagePreview(URL.createObjectURL(file));
     } else {
-      setProfileImage(null);
-      setImagePreview(users);
+      toast.error("Please select a valid image file.");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updateData = new FormData();
-    updateData.append("username", formData.username);
-    updateData.append("email", formData.email);
-    updateData.append("phone", formData.phone);
-    updateData.append("address", formData.address);
-    updateData.append("position", formData.position);
-    updateData.append("grade", formData.grade);
-    updateData.append("subject", formData.subject);
-    updateData.append("sex", formData.sex);
-    if (formData.password) {
-      updateData.append("password", formData.password);
-    }
-    if (profileImage) {
-      updateData.append("image", profileImage);
-    }
 
     try {
-      const response = await axios.post("http://localhost:3001/register/update", updateData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      let imageUrl = userDetails.image || ""; // Default to existing image URL
 
-      if (response && response.data.success) {
+      // Upload image if profileImage is not null
+      if (profileImage) {
+        const formData = new FormData();
+        formData.append("image", profileImage);
+        const uploadResponse = await axios.post(
+          "http://localhost:3001/upload",
+          formData
+        );
+        imageUrl = uploadResponse.data.filePath;
+      }
+
+      // Prepare data to update
+      const updatedData = {
+        email: userDetails.email,
+        password: formData.password,
+        image: imageUrl,
+        username: formData.username,
+        phone: formData.phone,
+        address: formData.address,
+        position: formData.position,
+        grade: formData.grade,
+        subject: formData.subject,
+        sex: formData.sex,
+      };
+
+      // Update user profile only if any field has been updated
+      const hasChanged = Object.keys(updatedData).some(
+        (key) => updatedData[key] !== userDetails[key]
+      );
+
+      if (hasChanged || imageUrl !== userDetails.image) {
+        const updateResponse = await axios.put(
+          "http://localhost:3001/register/update",
+          updatedData
+        );
+
         toast.success("Successfully updated!");
         setTimeout(() => {
-          navigate("/");
-        }, 2000);
+          onClose(); // Close the modal
+          window.location.reload();
+        }, 1000);
+
+        console.log(updateResponse.data); // Handle the response as needed
       } else {
-        toast.error(response.data.message || "Something went wrong");
+        toast.info("No changes to update.");
       }
     } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong");
+      toast.error("Error updating profile");
+
+      console.error("Error updating profile:", error);
     }
   };
 

@@ -10,6 +10,7 @@ const Event = () => {
   const [userRole, setUserRole] = useState(null);
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [subImageIndex, setSubImageIndex] = useState(1);
+  const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -67,16 +68,13 @@ const Event = () => {
         const userinfo = JSON.parse(localStorage.getItem("userinfo"));
         if (userinfo && userinfo.email) {
           const email = userinfo.email;
-          const response = await axios.get(
+          let response = await axios.get(
             `http://localhost:3001/auth/getUser/${email}`
           );
           if (response.data) {
             setUserRole("user");
-          } else {
-            console.log("User role not found in response");
+            setUserDetails(response.data);
           }
-        } else {
-          console.log("No user info found in local storage");
         }
       } catch (error) {
         console.error("Failed to fetch user details", error);
@@ -102,16 +100,18 @@ const Event = () => {
         <div className="eve_sub_2">
           {events.length > 1 && (
             <div>
-              {userRole === "user" && (
-                <div
-                  className="delete_icon"
-                  onClick={() => {
-                    handleDelete(subImageIndex);
-                  }}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </div>
-              )}
+              {userRole === "user" &&
+                (userDetails.position === "principal" ||
+                  userDetails.position === "vice principal") && (
+                  <div
+                    className="delete_icon"
+                    onClick={() => {
+                      handleDelete(subImageIndex);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </div>
+                )}
               <img
                 src={events[subImageIndex].image}
                 alt="Event"

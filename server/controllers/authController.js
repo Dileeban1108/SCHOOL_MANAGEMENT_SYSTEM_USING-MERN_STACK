@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Student = require("../models/Student");
 const Announcement = require("../models/Announcement");
 const Achievement = require("../models/Achievement");
 const Event = require("../models/Event");
@@ -94,6 +95,40 @@ const handleNewAchievement = async (req, res) => {
     res.status(500).json({ error: `${error.message}` });
   }
 };
+const handleNewStudent = async (req, res) => {
+  const { username, enrolNumber, idNumber, phone, enrolDate, image } = req.body;
+
+  // Check for required fields
+  if (!username || !image || !enrolNumber || !idNumber || !phone || !enrolDate) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    // Check for duplicate student by enrolNumber or idNumber
+    const duplicateStudent = await Student.findOne({
+      $or: [{ enrolNumber }, { idNumber }]
+    }).exec();
+
+    if (duplicateStudent) {
+      return res.status(409).json({ message: "Student already exists" });
+    }
+
+    // Create new student
+    await Student.create({
+      username,
+      image,
+      enrolNumber,
+      idNumber,
+      phone,
+      enrolDate
+    });
+
+    res.status(201).json({ success: "Student created successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 const handleNewEvent = async (req, res) => {
   const { description, image } = req.body;
@@ -218,6 +253,23 @@ const deleteReview = async (req, res) => {
     res.status(500).json({ error: "Failed to delete review" });
   }
 };
+const deleteStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleteById = await Student.findByIdAndDelete(id);
+
+    if (!deleteById) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+
+    res.status(200).json({ message: "Deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete student" });
+  }
+};
+
 const createReview = async (req, res) => {
   const {name, review } = req.body;
   if (!review) return res.status(400).json({ message: "required" });
@@ -252,6 +304,16 @@ const getUsers = async (req, res) => {
   try {
     const filters = req.body;
     const result = await User.find(filters);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch" });
+  }
+};
+const getStudents = async (req, res) => {
+  try {
+    const filters = req.body;
+    const result = await Student.find(filters);
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
@@ -319,4 +381,7 @@ module.exports = {
   handleNewAnnouncement,
   getUsers,
   deleteReview,
+  getStudents,
+  handleNewStudent,
+  deleteStudent
 };

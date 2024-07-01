@@ -18,18 +18,24 @@
   padding: 20px;
   border-radius: 5px;
   width: 400px;
-  max-width: 100%;
   display: flex;
   flex-direction: column;
   text-align: center;
+  justify-content: center;
+}
+@media screen and (max-width: 450px) {
+  .modal-content_6 {
+    width: 310px;
+  }
 }
 .modal-content_6 .inputs {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  width: 90%;
+  height: 30px;
 }
 .modal-content_6 h2 {
-  margin-top: 0;
   margin-bottom: 1rem;
   color: #007bff;
 }
@@ -37,6 +43,7 @@
 .modal-content_6 form {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .modal-content_6 label {
@@ -61,6 +68,7 @@
   margin-top: 10px;
   background-color: #007bff;
   color: white;
+  width: 100%;
 }
 
 .modal-content_6 .submit:hover {
@@ -82,8 +90,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  margin-bottom: 20px;
+  width: 90%;
   box-shadow: 0 0 1px rgb(109, 109, 109);
   padding: 10px;
   border-radius: 10px;

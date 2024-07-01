@@ -1,0 +1,161 @@
+.modal-content_3 {
+  background: rgb(240, 238, 238);
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  position: relative;
+}
+.modal-overlay_3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.783);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  flex-direction: column;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.student-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.stu_details {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0 2px gray;
+  padding: 20px;
+  gap: 10px;
+}
+.stu_details label {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  gap: 10px;
+  color: #007bff;
+}
+@media screen and (max-width: 550px) {
+  .stu_details label {
+    font-size: 12px;
+  }
+}
+.deleteupdate_btn{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.delete_btn{
+  background-color: red;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+}
+.delete_btn:hover{
+  background-color: rgb(202, 3, 3);
+}
+.stu_details label input {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  border: none;
+  background-color: rgb(218, 218, 218);
+  text-align: center;
+  font-size: 15px;
+}
+.student-details img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 5px 0;
+}
+
+.edit-btn {
+  width: 100px;
+  height: 40px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #0056b3;
+}
+.confirmation-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 450px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 2px solid red;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cancelconfirm_btn{
+display: flex;
+justify-content: space-between;
+}
+.confirm-btn_2,
+.cancel-btn_2 {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100px;
+}
+
+.confirm-btn_2 {
+  background-color: #0091ff;
+  color: #fff;
+}
+
+.cancel-btn_2 {
+  background-color: red;
+  color: #fff;
+}

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-const ServicesPage = ({ userRole }) => {
+const ServicesPage = ({ userRole,userDetails }) => {
   const [announcements, setAnnouncements] = useState([]);
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -49,16 +49,22 @@ const ServicesPage = ({ userRole }) => {
           {announcements.map((announcement) => (
             <div key={announcement._id} className="slide">
               <div className="bac-img-container">
-                <img src={announcement.image} alt="profile-image" className="bac-img"/>
+                <img
+                  src={announcement.image}
+                  alt="profile-image"
+                  className="bac-img"
+                />
                 <div className="description">{announcement.description}</div>
-                {userRole === "user" && (
-                  <div
-                    className="delete_icon"
-                    onClick={() => handleDelete(announcement._id)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </div>
-                )}
+                {userRole === "user" &&
+                  (userDetails.position === "principal" ||
+                    userDetails.position === "vice principal") && (
+                    <div
+                      className="delete_icon"
+                      onClick={() => handleDelete(announcement._id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </div>
+                  )}
               </div>
             </div>
           ))}

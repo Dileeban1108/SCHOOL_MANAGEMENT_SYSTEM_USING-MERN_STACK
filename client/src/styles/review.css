@@ -49,7 +49,7 @@
 }
 
 .review-inputs {
-  width: auto;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   flex-direction: column;

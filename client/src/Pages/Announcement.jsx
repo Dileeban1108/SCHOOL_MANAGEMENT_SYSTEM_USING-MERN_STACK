@@ -9,11 +9,14 @@ const Announcement = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [userRole, setUserRole] = useState("");
+  const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/auth/getAnnouncements");
+        const response = await axios.get(
+          "http://localhost:3001/auth/getAnnouncements"
+        );
         if (response.data) {
           // Correct the image paths to use forward slashes
           const formattedAnnouncements = response.data.map((announcement) => ({
@@ -34,7 +37,9 @@ const Announcement = () => {
   useEffect(() => {
     if (announcements.length > 0) {
       const interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % announcements.length);
+        setCurrentImageIndex(
+          (prevIndex) => (prevIndex + 1) % announcements.length
+        );
       }, 4000); // Change image every 4 seconds
 
       return () => clearInterval(interval); // Cleanup interval on component unmount
@@ -59,14 +64,13 @@ const Announcement = () => {
         const userinfo = JSON.parse(localStorage.getItem("userinfo"));
         if (userinfo && userinfo.email) {
           const email = userinfo.email;
-          let response = await axios.get(`http://localhost:3001/auth/getUser/${email}`);
+          let response = await axios.get(
+            `http://localhost:3001/auth/getUser/${email}`
+          );
           if (response.data) {
-            setUserRole("user"); // Assuming the response contains a role field
-          } else {
-            console.log("User role not found in response");
+            setUserRole("user");
+            setUserDetails(response.data);
           }
-        } else {
-          console.log("No user info found in local storage");
         }
       } catch (error) {
         console.error("Failed to fetch user details", error);
@@ -82,7 +86,10 @@ const Announcement = () => {
       <div className="ann_main">
         {announcements.length > 0 && (
           <div className="ann_img">
-            <img src={announcements[currentImageIndex].image} alt="Announcement" />
+            <img
+              src={announcements[currentImageIndex].image}
+              alt="Announcement"
+            />
           </div>
         )}
         <div className="ann_sub_2">
@@ -98,11 +105,16 @@ const Announcement = () => {
         {announcements.map((announcement, index) => (
           <div key={index} className="announcement_img_box">
             <img src={announcement.image} alt="Announcement" />
-            {userRole === "user" && ( 
-              <div className="delete_icon" onClick={() => handleDelete(index)}>
-                <FontAwesomeIcon icon={faTrash} />
-              </div>
-            )}
+            {userRole === "user" &&
+              (userDetails.position === "principal" ||
+                userDetails.position === "vice principal") && (
+                <div
+                  className="delete_icon"
+                  onClick={() => handleDelete(index)}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </div>
+              )}
           </div>
         ))}
       </div>

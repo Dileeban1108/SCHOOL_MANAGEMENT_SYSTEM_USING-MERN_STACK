@@ -34,6 +34,9 @@ const userSchema = new Schema({
     },
     image:{
       type:String,
+    },
+    subject:{
+     type:String,  
     }
 }, { timestamps: true });
 

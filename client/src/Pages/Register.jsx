@@ -148,7 +148,7 @@ const Register = () => {
         <form className="r_form" onSubmit={handleSubmit}>
           <h2 className="r_title">Sign Up</h2>
           <div className="signup_profile_section">
-            <img src={preview || users} alt="Profile" /> {/* Show preview or default image */}
+            <img src={preview || users} alt="Profile" />{" "}
             <label htmlFor="prof_image">Upload Your Image</label>
           </div>
           <input
