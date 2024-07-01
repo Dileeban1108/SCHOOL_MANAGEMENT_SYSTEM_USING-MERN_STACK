@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NavBar from "../components/Navbar";
+import NavBarOptional from "../components/NavBarOptional";
 import users from "../assets/users.jpg";
 
 const Register = () => {
@@ -143,7 +143,7 @@ const Register = () => {
   return (
     <div className="r_container">
       <ToastContainer position="top-right" />
-      <NavBar />
+      <NavBarOptional />
       <div className="r_main_container">
         <form className="r_form" onSubmit={handleSubmit}>
           <h2 className="r_title">Sign Up</h2>

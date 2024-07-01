@@ -76,6 +76,11 @@
     font-size: 0.5rem;
   }
 }
+@media screen and (max-width: 407px) {
+  .rcc-name {
+    font-size: 0.34rem;
+  }
+}
 
 .contact-info {
   display: flex;

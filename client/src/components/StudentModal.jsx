@@ -13,7 +13,29 @@ const StudentModal = ({ show, onClose }) => {
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
   const [showStudentModal, setShowStudentModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+  const [userDetails, setUserDetails] = useState({});
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+        if (userinfo && userinfo.email) {
+          const email = userinfo.email;
+          let response = await axios.get(
+            `http://localhost:3001/auth/getUser/${email}`
+          );
+          if (response.data) {
+            setUserRole("user");
+            setUserDetails(response.data);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch user details", error);
+      }
+    };
 
+    fetchUserDetails();
+  }, []);
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -65,9 +87,7 @@ const StudentModal = ({ show, onClose }) => {
 
   const filteredStudents = usersData.filter((student) => {
     const searchLower = searchTerm.toLowerCase();
-    return (
-      student.username.toLowerCase().includes(searchLower)
-    );
+    return student.username.toLowerCase().includes(searchLower);
   });
 
   return (
@@ -78,9 +98,13 @@ const StudentModal = ({ show, onClose }) => {
         </button>
         <div className="modal-content_st">
           <h2 className="staff_header">Students</h2>
-          <div className="addstudents" onClick={handleAddStudentModalClick}>
-            Add Students <FontAwesomeIcon icon={faPlus} />
-          </div>
+          {userRole === "user" &&
+            (userDetails.position === "principal" ||
+              userDetails.position === "vice principal") && (
+              <div className="addstudents" onClick={handleAddStudentModalClick}>
+                Add Students <FontAwesomeIcon icon={faPlus} />
+              </div>
+            )}
           <div className="searchinput2">
             <input
               type="text"

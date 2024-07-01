@@ -10,7 +10,7 @@ const ServicesPage = ({ userRole,userDetails }) => {
     const fetchAnnouncements = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/auth/getAnnouncements"
+          "http://localhost:3001/auth/getAchievements"
         );
         if (response.data) {
           // Correct the image paths to use forward slashes

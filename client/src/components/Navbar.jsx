@@ -184,8 +184,6 @@ const NavBar = ({
               </li>
             )}
             {userRole === "user" &&
-              (userDetails.position === "principal" ||
-                userDetails.position === "vice principal") && (
                 <li>
                   <RouterLink
                     style={{ textDecoration: "none" }}
@@ -195,7 +193,7 @@ const NavBar = ({
                     Students
                   </RouterLink>
                 </li>
-              )}
+              }
 
             <li>
               <ScrollLink

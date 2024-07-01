@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NavBar from "../components/Navbar";
+import NavBarOptional from "../components/NavBarOptional";
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <div className="r_container_2">
       <ToastContainer />
-      <NavBar/>
+      <NavBarOptional/>
         <div className="r_main_container">
           <form className="r_form" onSubmit={handleSubmit}>
             <h2 className="r_title">Sign In</h2>

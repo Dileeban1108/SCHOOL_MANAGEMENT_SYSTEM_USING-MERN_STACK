@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/event.css";
-import NavBar from "../components/Navbar";
+import NavBarOptional from "../components/NavBarOptional";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -86,7 +86,7 @@ const Event = () => {
 
   return (
     <div className="event">
-      <NavBar />
+      <NavBarOptional />
       <div className="eve_main">
         <div className="eve_sub_1">
           {events.length > 0 && (

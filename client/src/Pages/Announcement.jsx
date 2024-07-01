@@ -3,7 +3,7 @@ import "../styles/announcement.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import NavBar from "../components/Navbar";
+import NavBarOptional from "../components/NavBarOptional";
 
 const Announcement = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -82,7 +82,7 @@ const Announcement = () => {
 
   return (
     <div className="announcement">
-      <NavBar />
+      <NavBarOptional />
       <div className="ann_main">
         {announcements.length > 0 && (
           <div className="ann_img">
@@ -104,17 +104,17 @@ const Announcement = () => {
       <div className="all_announcements">
         {announcements.map((announcement, index) => (
           <div key={index} className="announcement_img_box">
-            <img src={announcement.image} alt="Announcement" />
             {userRole === "user" &&
               (userDetails.position === "principal" ||
                 userDetails.position === "vice principal") && (
                 <div
-                  className="delete_icon"
+                  className="delete_icon_2"
                   onClick={() => handleDelete(index)}
                 >
-                  <FontAwesomeIcon icon={faTrash} />
+                  delete{" "}
                 </div>
               )}
+            <img src={announcement.image} alt="Announcement" />
           </div>
         ))}
       </div>
