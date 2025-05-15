@@ -27,6 +27,7 @@ const Register = () => {
     "vice principal",
     "teacher",
     "sport coach",
+    "media team"
   ];
   const sexes = ["Select Sex", "male", "female"];
   const grades = [
@@ -89,7 +90,14 @@ const Register = () => {
     formData.append("subject", subject);
     formData.append("sex", sex);
 
-    try {
+  try {
+    let imageUrl = "";
+
+        if (image) {
+      // Only upload if image is selected
+      const formData = new FormData();
+      formData.append("image", image);
+
       const uploadResponse = await axios.post(
         "http://localhost:3001/upload",
         formData,
@@ -100,7 +108,8 @@ const Register = () => {
         }
       );
 
-      const imageUrl = uploadResponse.data.filePath;
+      imageUrl = uploadResponse.data.filePath;
+    }
 
       const response = await axios.post("http://localhost:3001/register", {
         username,
@@ -158,7 +167,6 @@ const Register = () => {
             accept="image/*"
             onChange={handleImageChange}
             name="image"
-            required
           />
           <div className="input_section">
             <input

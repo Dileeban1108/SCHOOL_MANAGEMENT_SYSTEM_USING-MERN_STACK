@@ -19,33 +19,9 @@ const Footer = () => {
             <NavLink to="">
               <FaInstagram />
             </NavLink>
-            <NavLink to="">
-              <AiOutlineGoogle />
-            </NavLink>
-          </ul>
-        </div>
-        <div className="container_1">
-          <h5 className="footer__heading">Links</h5>
-          <ul className="list-unstyled">
-            <li>
-              <a href="/" className="footer__link">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="aboutus" className="footer__link">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a href="login" className="footer__link">
-                Log In
-              </a>
-            </li>
           </ul>
         </div>
       </section>
-
       <div className="footer__copyright">
         &copy; {new Date().getFullYear()} All Rights Reserved!..
       </div>

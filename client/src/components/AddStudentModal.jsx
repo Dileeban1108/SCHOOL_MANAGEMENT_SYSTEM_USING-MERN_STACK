@@ -17,20 +17,17 @@ const AddStudentModal = ({ show, onClose }) => {
   const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    e.preventDefault();
+  try {
+    let imageUrl = "";
 
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("username", username);
-    formData.append("enrolNumber", enrolNumber);
-    formData.append("idNumber", idNumber);
-    formData.append("phone", phone);
-    formData.append("enrolDate", enrolDate);
+    if (image) {
+      // Only upload if image is selected
+      const formData = new FormData();
+      formData.append("image", image);
 
-    try {
-      // Upload image first
       const uploadResponse = await axios.post(
         "http://localhost:3001/upload",
         formData,
@@ -41,36 +38,38 @@ const AddStudentModal = ({ show, onClose }) => {
         }
       );
 
-      const imageUrl = uploadResponse.data.filePath;
-
-      // Create student with image URL
-      const response = await axios.post(
-        "http://localhost:3001/auth/createStudent",
-        {
-          username,
-          enrolNumber,
-          idNumber,
-          phone,
-          enrolDate,
-          image: imageUrl,
-        }
-      );
-
-      if (response && response.data.success) {
-        toast.success("Successfully added a student!");
-        setTimeout(() => {
-          onClose();
-          navigate("/");
-          window.location.reload();
-        }, 1000);
-      } else {
-        toast.error(response.data.message || "Something went wrong");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong");
+      imageUrl = uploadResponse.data.filePath;
     }
-  };
+
+    // Now create student, with or without image
+    const response = await axios.post(
+      "http://localhost:3001/auth/createStudent",
+      {
+        username,
+        enrolNumber,
+        idNumber,
+        phone,
+        enrolDate,
+        image: imageUrl, // will be empty if no image
+      }
+    );
+
+    if (response && response.data.success) {
+      toast.success("Successfully added a student!");
+      setTimeout(() => {
+        onClose();
+        navigate("/");
+        window.location.reload();
+      }, 1000);
+    } else {
+      toast.error(response.data.message || "Something went wrong");
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong");
+  }
+};
+
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -108,7 +107,6 @@ const AddStudentModal = ({ show, onClose }) => {
             name="image"
             accept="image/*"
             onChange={handleImageChange}
-            required
           />
           <input
             className="add_input_box"
@@ -143,7 +141,6 @@ const AddStudentModal = ({ show, onClose }) => {
             placeholder="ID Number"
             value={idNumber}
             onChange={(e) => setIdNumber(e.target.value)}
-            required
           />
           <input
             className="add_input_box"

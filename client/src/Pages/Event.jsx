@@ -101,8 +101,7 @@ const Event = () => {
           {events.length > 1 && (
             <div>
               {userRole === "user" &&
-                (userDetails.position === "principal" ||
-                  userDetails.position === "vice principal") && (
+              userDetails.position === "media team" && (
                   <div
                     className="delete_icon"
                     onClick={() => {

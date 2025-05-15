@@ -6,7 +6,7 @@ import image from "../assets/logo.jpg";
 
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 
-const NavBarOptional = ({}) => {
+const NavBarOptional = ({ }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/");
@@ -24,7 +24,7 @@ const NavBarOptional = ({}) => {
           <FontAwesomeIcon icon={faEnvelope} /> : email@example.com
         </div>
       </div>
-      <div className="nav-container" style={{display:"flex" ,justifyContent:"center", alignItems:"center"}}>
+      <div className="nav-container">
         <div className="logo" onClick={handleClick}>
           <img src={image} alt="logo" />
         </div>

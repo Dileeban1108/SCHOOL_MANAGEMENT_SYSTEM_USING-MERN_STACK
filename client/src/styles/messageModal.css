@@ -1,0 +1,104 @@
+.modal-overlay_message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    flex-direction: column;
+}
+
+.modal-content_message {
+    background-color: white;
+    padding: 20px;
+    max-width: 400px;
+    border-radius: 8px;
+    width: 80%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    text-align: center;
+    height: 300px;
+    overflow-y: auto;
+}
+.modal-content_message h3{
+    color: #006aff;
+    margin-bottom: 10px;
+}
+.modal-content_message textarea {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    resize: vertical;
+    font-size: 14px;
+}
+
+.close-button, .send-button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #0077ff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close-button {
+    background-color: #f44336;
+    float: right;
+}
+.message-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.message-item {
+  background-color: #f9f9f9;
+  border-left: 4px solid #0080ff;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
+}
+
+.message-item:hover {
+  background-color: #f1f1f1;
+}
+
+.message-header {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.message-body {
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.message-date {
+  font-size: 15px;
+  color: #777;
+}
+.tabs {
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+}
+
+.tabs button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}

@@ -18,18 +18,17 @@
 .students-btn{
   background-color: #007bff;
   color: #f0f0f0;
-  padding: 8px;
+  padding:10px 50px;
   border-radius: 5px;
 }
 .nav-container {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-between;
   width: 90%;
   align-items: center;
   margin: 8px;
   height: 70px;
 }
-
 .rcc-container {
   display: flex;
   align-items: center;
@@ -94,7 +93,7 @@
 .logo {
   align-items: center;
   position: relative;
-  height: 70px;
+  height: 50px;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 0 5px black;
@@ -198,8 +197,8 @@
 
 .profile-dropdown {
   position: absolute;
-  top: 100%;
-  right: 0;
+  top: 140%;
+  left:0;
   background-color: white;
   color: black;
   border: 1px solid #ddd;
@@ -254,25 +253,21 @@
   font-size: 1.5rem;
 }
 
-/* Default state */
-.nav-container ul li:nth-child(1) {
-  display: none;
-}
 
 /* Media query for screens less than 1098px */
 @media screen and (max-width: 1098px) {
   .nav-links {
     display: none;
     flex-direction: column;
-    background-color: #00000078;
-    width: 50%;
+    background-color: #000000c9;
+    width: 250px;
     position: absolute;
     top: 100%;
     right: 0;
     padding: 1rem 0;
     font-size: 1rem;
     color: #fff;
-    height: 90vh;
+    width: 100%;
   }
 
   .nav-links.active {
@@ -291,21 +286,6 @@
   .hamburger {
     display: block;
   }
-  
-  .nav-container ul li:nth-child(10) {
-    display: none;
-  }
-
-  .nav-container ul li:nth-child(1) {
-    display: initial;
-  }
-}
-
-/* Media query for screens 1098px and above */
-@media screen and (max-width: 1098px) {
-  .nav-container ul li:nth-child(1) {
-    display: initial;
-  }
 }
 
 .profile_img {
@@ -313,4 +293,38 @@
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
+    box-shadow: 0 0 5px black;
+
+}
+.icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+.icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-weight: bold;
 }

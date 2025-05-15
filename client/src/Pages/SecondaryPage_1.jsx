@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/application.css";
-import NavBar from "../components/Navbar";
+import NavBar from "../components/NavBarOptional";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 const PrimaryPage = () => {

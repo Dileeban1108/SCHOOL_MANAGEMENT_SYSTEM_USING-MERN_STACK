@@ -105,8 +105,7 @@ const Announcement = () => {
         {announcements.map((announcement, index) => (
           <div key={index} className="announcement_img_box">
             {userRole === "user" &&
-              (userDetails.position === "principal" ||
-                userDetails.position === "vice principal") && (
+              userDetails.position === "media team" && (
                 <div
                   className="delete_icon_2"
                   onClick={() => handleDelete(index)}

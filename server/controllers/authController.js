@@ -5,7 +5,8 @@ const Achievement = require("../models/Achievement");
 const Event = require("../models/Event");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Review=require("../models/Review")
+const TimeLog = require("../models/TimeLog")
+const Message = require("../models/Message")
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -21,7 +22,7 @@ const handleLogin = async (req, res) => {
     const accessToken = jwt.sign(
       {
         userInfo: { username: foundUser.username },
-        issuedAt: Date.now(), 
+        issuedAt: Date.now(),
       },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "20s" }
@@ -50,7 +51,7 @@ const handleLogin = async (req, res) => {
 };
 const handleNewAnnouncement = async (req, res) => {
   const { description, image } = req.body;
-  if (!description || !image ) {
+  if (!description || !image) {
     return res.status(400).json({ message: "something is required" });
   }
 
@@ -73,7 +74,7 @@ const handleNewAnnouncement = async (req, res) => {
 };
 
 const handleNewAchievement = async (req, res) => {
-  const { description, image} = req.body;
+  const { description, image } = req.body;
   if (!description || !image) {
     return res.status(400).json({ message: "is required" });
   }
@@ -99,14 +100,14 @@ const handleNewStudent = async (req, res) => {
   const { username, enrolNumber, idNumber, phone, enrolDate, image } = req.body;
 
   // Check for required fields
-  if (!username || !image || !enrolNumber || !idNumber || !phone || !enrolDate) {
+  if (!username || !enrolNumber || !phone || !enrolDate) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
     // Check for duplicate student by enrolNumber or idNumber
     const duplicateStudent = await Student.findOne({
-      $or: [{ enrolNumber }, { idNumber }]
+      $or: [{ enrolNumber }]
     }).exec();
 
     if (duplicateStudent) {
@@ -132,7 +133,7 @@ const handleNewStudent = async (req, res) => {
 
 const handleNewEvent = async (req, res) => {
   const { description, image } = req.body;
-  if (!description || !image ) {
+  if (!description || !image) {
     return res.status(400).json({ message: "something is required" });
   }
 
@@ -237,22 +238,6 @@ const deleteEvent = async (req, res) => {
     res.status(500).json({ error: "Failed to delete" });
   }
 };
-const deleteReview = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const deleteByReview = await Review.findByIdAndDelete(id);
-
-    if (!deleteByReview) {
-      return res.status(404).json({ error: "Review not found" });
-    }
-
-    res.status(200).json({ message: "Review deleted successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to delete review" });
-  }
-};
 const deleteStudent = async (req, res) => {
   try {
     const { id } = req.params;
@@ -267,36 +252,6 @@ const deleteStudent = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to delete student" });
-  }
-};
-
-const createReview = async (req, res) => {
-  const {name, review } = req.body;
-  if (!review) return res.status(400).json({ message: "required" });
-
-  try {
-    await Review.create({
-      name: name,
-      review: review,
-    });
-
-    res
-      .status(200)
-      .json({ success: `new review created` });
-  } catch (error) {
-    res.status(500).json({ error: `${error.message}` });
-  }
-};
-const getReviews = async (req, res) => {
-  try {
-    const filters = req.body;
-
-    const result = await Review.find(filters);
-
-    res.status(200).json(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch" });
   }
 };
 
@@ -350,7 +305,7 @@ const getUserByGrade = async (req, res) => {
 };
 const getUsersByPosition = async (req, res) => {
   try {
-    const { position} = req.params;
+    const { position } = req.params;
     const additionalFilters = req.body;
 
     const query = { position, ...additionalFilters };
@@ -363,15 +318,133 @@ const getUsersByPosition = async (req, res) => {
   }
 };
 
+const handleLogDate = async (req, res) => {
+  const { username, email, status, date } = req.body;
+  try {
+    await TimeLog.create({
+      username,
+      email,
+      date,
+      status,
+    });
+
+    res.status(201).json({ success: "Successfully Logged" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const handleSendMessage = async (req, res) => {
+  const { recieverName, senderEmail, message,recieverEmail,senderName } = req.body;
+  try {
+    await Message.create({
+      recieverName,
+      senderEmail,
+      recieverEmail,
+      message,
+      senderName,
+    });
+
+    res.status(201).json({ success: "Successfully Created" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+const getTimeLogs = async (req, res) => {
+  try {
+    const filters = req.body;
+    const result = await TimeLog.find(filters);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch" });
+  }
+};
+const getTimeLogsByEmail = async (req, res) => {
+  try {
+    const { email } = req.query; // Use query param for GET requests
+
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+
+    const logs = await TimeLog.find({ email }); // find all logs for that email
+
+    res.status(200).json(logs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch time logs" });
+  }
+};
+
+const updateTimeLog = async (req, res) => {
+  try {
+    const { status, email, date } = req.body;
+
+    const query = { email, date: new Date(date).toISOString() };
+
+    const updatedTimeLog = await TimeLog.findOneAndUpdate(
+      query,
+      { status },
+      { new: true }
+    );
+
+    if (!updatedTimeLog) {
+      return res.status(404).json({ error: "Log not found to update" });
+    }
+
+    res.status(200).json(updatedTimeLog);
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({ error: "Failed to update" });
+  }
+};
+const getMessagesByRecieverEmail = async (req, res) => {
+  try {
+    const { recieverEmail } = req.params; // Use query param for GET requests
+
+    if (!recieverEmail) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+
+    const logs = await Message.find({ recieverEmail }); // find all logs for that email
+
+    res.status(200).json(logs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch messages" });
+  }
+};
+const getMessagesBySenderEmail = async (req, res) => {
+  try {
+    const { senderEmail } = req.params; // Use query param for GET requests
+
+    if (!senderEmail) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+    
+    const logs = await Message.find({ senderEmail }); // find all logs for that email
+
+    res.status(200).json(logs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch messages" });
+  }
+};
 module.exports = {
+  handleSendMessage,
+  getMessagesByRecieverEmail,
+  getMessagesBySenderEmail,
+  handleLogDate,
+  getTimeLogs,
+  getTimeLogsByEmail,
+  updateTimeLog,
   handleLogin,
   getUsersByPosition,
   getUserByGrade,
   getUserByEmail,
   deleteEvent,
   deleteAchievement,
-  createReview,
-  getReviews,
   deleteAnnouncement,
   getEvents,
   getAchievements,
@@ -380,7 +453,6 @@ module.exports = {
   handleNewAchievement,
   handleNewAnnouncement,
   getUsers,
-  deleteReview,
   getStudents,
   handleNewStudent,
   deleteStudent

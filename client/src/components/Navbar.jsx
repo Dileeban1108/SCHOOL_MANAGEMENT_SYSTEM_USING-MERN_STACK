@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/navbar.css";
 import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import user from "../assets/users.jpg";
+import axios from "axios";
 import {
   faSignOutAlt,
   faEdit,
@@ -13,6 +14,9 @@ import {
   faEnvelope,
   faPhone,
   faPlus,
+  faM,
+  faMessage,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import ProfileModal from "./ProfileModal";
 import PrimaryStaffModal from "./PrimaryStaffModal";
@@ -22,30 +26,51 @@ import Secondary_2StaffModal from "./Secondary_2StaffModal.jsx";
 import EventModal from "./AddNewEventModal";
 import AnnouncementModal from "./AddNewAnnouncementModal";
 import AchievementModal from "./AddNewAchievementModal";
+import LogModal from "./LogModal";
+import AllLogsModal from "./AllLogsModal";
 import image from "../assets/logo.jpg";
-import user from "../assets/users.jpg";
-
+import MessageViewModal from "./MessageViewModal.jsx";
+import AddApplicationForm from "./AddApplicationForm.jsx";
 const NavBar = ({
   main,
   services,
   aboutus,
-  reviews,
   academics,
   userRole,
   userDetails,
 }) => {
   const [showProfile, setShowProfile] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showAllLogsModal, setShowAllLogsModal] = useState(false);
   const [showEventModal, setShowEventModal] = useState(false);
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
+  const [showApplicationModal, setShowApplicationModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showPrimaryStaffModal, setShowPrimaryStaffModal] = useState(false);
-  const [showSecondary_1StaffModal, setShowSecondary_1StaffModal] =
-    useState(false);
-  const [showSecondary_2StaffModal, setShowSecondary_2StaffModal] =
-    useState(false);
+  const [showSecondary_1StaffModal, setShowSecondary_1StaffModal] = useState(false);
+  const [showSecondary_2StaffModal, setShowSecondary_2StaffModal] = useState(false);
   const [showStudentModal, setShowStudentModal] = useState(false);
+  const [showLogModal, setShowLogModal] = useState(false);
+  const [messageCount, setMessageCount] = useState(0);
+  const [messages, setMessages] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      if (!userDetails.email) return;
+
+      try {
+        const res = await axios.get(`http://localhost:3001/auth/getMessagesByRecieverEmail/${userDetails.email}`);
+        setMessageCount(res.data.length);
+      } catch (error) {
+        console.error("Failed to fetch messages:", error);
+      }
+    };
+
+    fetchMessages();
+  }, [userDetails.email]);
+
   const navigate = useNavigate();
 
   const toggleProfile = () => {
@@ -60,7 +85,9 @@ const NavBar = ({
   const handleUpdateProfileClick = () => {
     setShowProfileModal(true);
   };
-
+  const handleAllLogsClick = () => {
+    setShowAllLogsModal(true)
+  }
   const handleAddEventClick = () => {
     setShowEventModal(true);
   };
@@ -72,7 +99,9 @@ const NavBar = ({
   const handleAddAnnouncementClick = () => {
     setShowAnnouncementModal(true);
   };
-
+const handleAddApplicationsClick = () => {
+      setShowApplicationModal(true);
+}
   const handlePrimaryModalClick = () => {
     setShowPrimaryStaffModal(true);
   };
@@ -103,6 +132,9 @@ const NavBar = ({
   const handleCloseAnnouncementModal = () => {
     setShowAnnouncementModal(false);
   };
+  const handleCloseApplicationsClick=()=>{
+    setShowApplicationModal(false)
+  }
 
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
@@ -127,6 +159,23 @@ const NavBar = ({
     setShowSecondary_2StaffModal(false);
   };
 
+  const handleLogModalClick = () => {
+    setShowLogModal(true);
+  };
+
+  const handleCloseLogModal = () => {
+    setShowLogModal(false);
+  };
+
+  const handleCloseAllLogsModal = () => {
+    setShowAllLogsModal(false)
+  }
+  const handleCloseMessageViewModal = () => {
+    setShowModal(false);
+  };
+  const handleModalClick = () => {
+    setShowModal(true);
+  };
   return (
     <>
       <nav className="navbar">
@@ -142,6 +191,51 @@ const NavBar = ({
           </div>
         </div>
         <div className="nav-container">
+          {/* {userRole === "user" && ( */}
+            <div className="profile-icon" onClick={toggleProfile}>
+              <img
+                src={userDetails.image || user}
+                alt="profile"
+                className="profile_img"
+              />
+              {showProfile && (
+                <div className="profile-dropdown">
+                  <div className="name-email">
+                    <h3>Hello {userDetails.username}</h3>
+                  </div>
+                  {userDetails.position === "principal" &&
+                    <p onClick={handleAllLogsClick}>
+                      View All Time Logs <FontAwesomeIcon icon={faArrowRight} />
+                    </p>
+                  }
+                  <p onClick={handleUpdateProfileClick}>
+                    Update Profile
+                    <FontAwesomeIcon icon={faEdit} />
+                  </p>
+                  {userDetails.position === "media team" && (
+                    <>
+                      <p onClick={handleAddEventClick}>
+                        Add New Event <FontAwesomeIcon icon={faPlus} />
+                      </p>
+                      <p onClick={handleAddAchievementClick}>
+                        Add New Achievement <FontAwesomeIcon icon={faPlus} />
+                      </p>
+                      <p onClick={handleAddAnnouncementClick}>
+                        Add New Announcement <FontAwesomeIcon icon={faPlus} />
+                      </p>
+                    </>
+                  )}
+                  <p onClick={handleAddApplicationsClick}>
+                        Add Applications <FontAwesomeIcon icon={faPlus} />
+                      </p>
+                  <p onClick={handleLogout}>
+                    Logout
+                    <FontAwesomeIcon icon={faSignOutAlt} />
+                  </p>
+                </div>
+              )}
+            </div>
+          {/* )} */}
           <div className="logo" onClick={handleClick}>
             <img src={image} alt="logo" />
           </div>
@@ -150,62 +244,15 @@ const NavBar = ({
           </div>
           <ul className={`nav-links ${showMobileMenu ? "active" : ""}`} >
             {userRole === "user" && (
-              <li className="profile-icon" onClick={toggleProfile}>
-                <img
-                  src={userDetails.image}
-                  alt="profile"
-                  className="profile_img"
-                />
-                {showProfile && (
-                  <div className="profile-dropdown">
-                    <div className="name-email">
-                      <h3>{userDetails.username}</h3>
-                      <h5>{userDetails.email}</h5>
-                    </div>
-                    <p onClick={handleUpdateProfileClick}>
-                      Update Profile
-                      <FontAwesomeIcon icon={faEdit} />
-                    </p>
-                    <p onClick={handleAddEventClick}>
-                      Add New Event <FontAwesomeIcon icon={faPlus} />
-                    </p>
-                    <p onClick={handleAddAchievementClick}>
-                      Add New Achievement <FontAwesomeIcon icon={faPlus} />
-                    </p>
-                    <p onClick={handleAddAnnouncementClick}>
-                      Add New Announcement <FontAwesomeIcon icon={faPlus} />
-                    </p>
-                    <p onClick={handleLogout}>
-                      Logout
-                      <FontAwesomeIcon icon={faSignOutAlt} />
-                    </p>
-                  </div>
-                )}
+              <li>
+                <ScrollLink
+                  style={{ textDecoration: "none" }}
+                  onClick={handleStudentModalClick}
+                >
+                  Students
+                </ScrollLink>
               </li>
             )}
-            {userRole === "user" &&
-                <li>
-                  <RouterLink
-                    style={{ textDecoration: "none" }}
-                    className="students-btn"
-                    onClick={handleStudentModalClick}
-                  >
-                    Students
-                  </RouterLink>
-                </li>
-              }
-
-            <li>
-              <ScrollLink
-                to={main}
-                smooth={true}
-                duration={500}
-                onClick={toggleMobileMenu}
-              >
-                Home
-              </ScrollLink>
-            </li>
-
             <li>
               <ScrollLink
                 smooth={true}
@@ -257,6 +304,7 @@ const NavBar = ({
                 </div>
               </ScrollLink>
             </li>
+
             <li>
               <ScrollLink
                 smooth={true}
@@ -290,27 +338,6 @@ const NavBar = ({
                 </div>
               </ScrollLink>
             </li>
-
-            <li>
-              <ScrollLink
-                to={academics}
-                smooth={true}
-                duration={500}
-                onClick={toggleMobileMenu}
-              >
-                Academic
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink
-                to={services}
-                smooth={true}
-                duration={500}
-                onClick={toggleMobileMenu}
-              >
-                Achievements
-              </ScrollLink>
-            </li>
             <li>
               <ScrollLink
                 smooth={true}
@@ -335,59 +362,30 @@ const NavBar = ({
                 </div>
               </ScrollLink>
             </li>
-            <li>
-              <ScrollLink
-                to={aboutus}
-                smooth={true}
-                duration={500}
-                onClick={toggleMobileMenu}
-              >
-                About Us
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink
-                to={reviews}
-                smooth={true}
-                duration={500}
-                onClick={toggleMobileMenu}
-              >
-                Reviews
-              </ScrollLink>
-            </li>
+
+
+
             {userRole === "user" && (
-              <li className="profile-icon" onClick={toggleProfile}>
-                <img
-                  src={userDetails.image}
-                  alt="profile"
-                  className="profile_img"
-                />
-                {showProfile && (
-                  <div className="profile-dropdown">
-                    <div className="name-email">
-                      <h3>{userDetails.username}</h3>
-                      <h5>{userDetails.email}</h5>
-                    </div>
-                    <p onClick={handleUpdateProfileClick}>
-                      Update Profile
-                      <FontAwesomeIcon icon={faEdit} />
-                    </p>
-                    <p onClick={handleAddEventClick}>
-                      Add New Event <FontAwesomeIcon icon={faPlus} />
-                    </p>
-                    <p onClick={handleAddAchievementClick}>
-                      Add New Achievement <FontAwesomeIcon icon={faPlus} />
-                    </p>
-                    <p onClick={handleAddAnnouncementClick}>
-                      Add New Announcement <FontAwesomeIcon icon={faPlus} />
-                    </p>
-                    <p onClick={handleLogout}>
-                      Logout
-                      <FontAwesomeIcon icon={faSignOutAlt} />
-                    </p>
-                  </div>
-                )}
-              </li>
+              <>
+                <li className="icon-container" onClick={handleModalClick}
+                >
+                  <FontAwesomeIcon icon={faMessage} />
+                  {messageCount > 0 && (
+                    <span className="badge">{messageCount}</span>
+                  )}
+
+                </li>
+                <li>
+                  <RouterLink
+                    style={{ textDecoration: "none" }}
+                    className="students-btn"
+                    onClick={handleLogModalClick}
+                  >
+                    Log
+                  </RouterLink>
+                </li>
+
+              </>
             )}
           </ul>
         </div>
@@ -416,10 +414,27 @@ const NavBar = ({
         show={showAnnouncementModal}
         onClose={handleCloseAnnouncementModal}
       />
+      <AddApplicationForm
+      show={showApplicationModal}
+      onClose={handleCloseApplicationsClick}
+      />
       <AchievementModal
         show={showAchievementModal}
         onClose={handleCloseAchievementModal}
       />
+      <LogModal
+        show={showLogModal}
+        onClose={handleCloseLogModal}
+        userDetails={userDetails}
+      />
+      <AllLogsModal
+        show={showAllLogsModal}
+        onClose={handleCloseAllLogsModal}
+        userDetails={userDetails}
+      />
+      <MessageViewModal show={showModal} messages={messages} onClose={handleCloseMessageViewModal} userDetails={userDetails}
+      />
+
     </>
   );
 };

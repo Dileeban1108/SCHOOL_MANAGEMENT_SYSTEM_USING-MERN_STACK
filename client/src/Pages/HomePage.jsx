@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import MainPage from "./MainPage";
 import ServicesPage from "./ServicesPage";
 import AboutUs from "./About";
-import ReviewPage from "./ReviewPage";
 import Users from "./Users";
 import { useNavigate } from "react-router-dom";
 
@@ -49,12 +48,12 @@ const HomePage = () => {
         main="main"
         services="services"
         aboutus="aboutus"
-        reviews="reviews"
         academics="academics"
         userRole={userRole}
         userDetails={userDetails}
       />
       <MainPage id="main" />
+              <AboutUs/>
       <Users />
 
       <div className="main-home-container" id="academics">
@@ -85,12 +84,6 @@ const HomePage = () => {
           userRole={userRole}
           userDetails={userDetails}
           id="services"
-        />
-        <AboutUs id="aboutus" />
-        <ReviewPage
-          id="reviews"
-          userRole={userRole}
-          userDetails={userDetails}
         />
         <Footer />
       </div>

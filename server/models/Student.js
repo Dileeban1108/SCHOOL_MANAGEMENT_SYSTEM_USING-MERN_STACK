@@ -14,7 +14,6 @@ const studentSchema = new Schema(
     },
     idNumber: {
       type: String,
-      required: true,
     },
     phone: {
       type: Number,
