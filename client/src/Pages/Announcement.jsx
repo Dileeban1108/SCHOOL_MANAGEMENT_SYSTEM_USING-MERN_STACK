@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../styles/announcement.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import NavBarOptional from "../components/NavBarOptional";
 
@@ -10,20 +8,18 @@ const Announcement = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [userRole, setUserRole] = useState("");
   const [userDetails, setUserDetails] = useState({});
+  const [isHovered, setIsHovered] = useState(false);
+  const [menuOpenIndex, setMenuOpenIndex] = useState(null);
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/auth/getAnnouncements"
-        );
+        const response = await axios.get("http://localhost:3001/auth/getAnnouncements");
         if (response.data) {
-          // Correct the image paths to use forward slashes
           const formattedAnnouncements = response.data.map((announcement) => ({
             ...announcement,
             image: announcement.image.replace(/\\/g, "/"),
           }));
-          console.log("colle", formattedAnnouncements); // Log the formatted response data
           setAnnouncements(formattedAnnouncements);
         }
       } catch (error) {
@@ -35,24 +31,23 @@ const Announcement = () => {
   }, []);
 
   useEffect(() => {
-    if (announcements.length > 0) {
+    if (announcements.length > 0 && !isHovered) {
       const interval = setInterval(() => {
-        setCurrentImageIndex(
-          (prevIndex) => (prevIndex + 1) % announcements.length
-        );
-      }, 4000); // Change image every 4 seconds
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % announcements.length);
+      }, 4000);
 
-      return () => clearInterval(interval); // Cleanup interval on component unmount
+      return () => clearInterval(interval);
     }
-  }, [announcements.length]);
+  }, [announcements.length, isHovered]);
 
   const handleDelete = async (index) => {
     try {
       const announcement = announcements[index];
       await axios.delete("http://localhost:3001/auth/deleteAnnouncement", {
-        data: { id: announcement._id }, // Ensure correct key is used
+        data: { id: announcement._id },
       });
       setAnnouncements(announcements.filter((_, i) => i !== index));
+      setMenuOpenIndex(null); // close menu after delete
     } catch (error) {
       console.error("There was an error deleting the announcement!", error);
     }
@@ -62,11 +57,8 @@ const Announcement = () => {
     const fetchUserDetails = async () => {
       try {
         const userinfo = JSON.parse(localStorage.getItem("userinfo"));
-        if (userinfo && userinfo.email) {
-          const email = userinfo.email;
-          let response = await axios.get(
-            `http://localhost:3001/auth/getUser/${email}`
-          );
+        if (userinfo?.email) {
+          const response = await axios.get(`http://localhost:3001/auth/getUser/${userinfo.email}`);
           if (response.data) {
             setUserRole("user");
             setUserDetails(response.data);
@@ -85,7 +77,11 @@ const Announcement = () => {
       <NavBarOptional />
       <div className="ann_main">
         {announcements.length > 0 && (
-          <div className="ann_img">
+          <div
+            className="ann_img"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
             <img
               src={announcements[currentImageIndex].image}
               alt="Announcement"
@@ -104,15 +100,23 @@ const Announcement = () => {
       <div className="all_announcements">
         {announcements.map((announcement, index) => (
           <div key={index} className="announcement_img_box">
-            {userRole === "user" &&
-              userDetails.position === "media team" && (
+            {userRole === "user" && userDetails.position === "media team" && (
+              <div className="menu_container">
                 <div
-                  className="delete_icon_2"
-                  onClick={() => handleDelete(index)}
+                  className="menu_icon"
+                  onClick={() =>
+                    setMenuOpenIndex(menuOpenIndex === index ? null : index)
+                  }
                 >
-                  delete{" "}
+                  &#8942;
                 </div>
-              )}
+                {menuOpenIndex === index && (
+                  <div className="menu_dropdown">
+                    <div onClick={() => handleDelete(index)}>Delete</div>
+                  </div>
+                )}
+              </div>
+            )}
             <img src={announcement.image} alt="Announcement" />
           </div>
         ))}

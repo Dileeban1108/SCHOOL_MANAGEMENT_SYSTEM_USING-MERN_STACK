@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/event.css";
 import NavBarOptional from "../components/NavBarOptional";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 const Event = () => {
@@ -11,22 +9,20 @@ const Event = () => {
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [subImageIndex, setSubImageIndex] = useState(1);
   const [userDetails, setUserDetails] = useState({});
+  const [menuOpenIndex, setMenuOpenIndex] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/auth/getEvents"
-        );
+        const response = await axios.get("http://localhost:3001/auth/getEvents");
         if (response.data) {
           const formattedEvents = response.data.map((event) => ({
             ...event,
             image: event.image.replace(/\\/g, "/"),
           }));
-          console.log("Events:", formattedEvents);
           setEvents(formattedEvents);
           if (formattedEvents.length > 1) {
-            setSubImageIndex(1); // Set initial subImageIndex to avoid being the same as mainImageIndex
+            setSubImageIndex(1);
           }
         }
       } catch (error) {
@@ -44,9 +40,8 @@ const Event = () => {
           setSubImageIndex((newIndex + 1) % events.length);
           return newIndex;
         });
-      }, 4000); // Change image every 4 seconds
-
-      return () => clearInterval(interval); // Cleanup interval on component unmount
+      }, 4000);
+      return () => clearInterval(interval);
     }
   }, [events.length]);
 
@@ -54,11 +49,12 @@ const Event = () => {
     try {
       const event = events[index];
       await axios.delete("http://localhost:3001/auth/deleteEvent", {
-        data: { id: event._id }, // Ensure correct key is used
+        data: { id: event._id },
       });
       setEvents(events.filter((_, i) => i !== index));
+      setMenuOpenIndex(null);
     } catch (error) {
-      console.error("There was an error deleting the announcement!", error);
+      console.error("There was an error deleting the event!", error);
     }
   };
 
@@ -68,9 +64,7 @@ const Event = () => {
         const userinfo = JSON.parse(localStorage.getItem("userinfo"));
         if (userinfo && userinfo.email) {
           const email = userinfo.email;
-          let response = await axios.get(
-            `http://localhost:3001/auth/getUser/${email}`
-          );
+          let response = await axios.get(`http://localhost:3001/auth/getUser/${email}`);
           if (response.data) {
             setUserRole("user");
             setUserDetails(response.data);
@@ -100,17 +94,23 @@ const Event = () => {
         <div className="eve_sub_2">
           {events.length > 1 && (
             <div>
-              {userRole === "user" &&
-              userDetails.position === "media team" && (
+              {userRole === "user" && userDetails.position === "media team" && (
+                <div className="menu_container">
                   <div
-                    className="delete_icon"
-                    onClick={() => {
-                      handleDelete(subImageIndex);
-                    }}
+                    className="menu_icon"
+                    onClick={() =>
+                      setMenuOpenIndex(menuOpenIndex === subImageIndex ? null : subImageIndex)
+                    }
                   >
-                    <FontAwesomeIcon icon={faTrash} />
+                    &#8942;
                   </div>
-                )}
+                  {menuOpenIndex === subImageIndex && (
+                    <div className="menu_dropdown">
+                      <div onClick={() => handleDelete(subImageIndex)}>Delete</div>
+                    </div>
+                  )}
+                </div>
+              )}
               <img
                 src={events[subImageIndex].image}
                 alt="Event"

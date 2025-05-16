@@ -1,6 +1,6 @@
 .services-container {
   overflow: hidden;
-  height: AUTO; /* Adjust height as needed */
+  height: auto;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -10,97 +10,150 @@
   background: url("../assets/back1.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  padding:10px 0;
+  padding: 10px 0;
 }
 
 .slider {
   display: flex;
-  animation: scroll 35s linear infinite;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
   gap: 2rem;
-  width: 100%;
+  padding: 1rem;
+  scroll-behavior: smooth;
+  width: 90vw;
+  margin-bottom: 30px;
 }
+
 
 .slide {
-  width: 95vw;
-  position: relative;
-}
-.bac-img-container {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
   display: flex;
-  height: 800px;
-  border-radius: 10px;
+  justify-content: center;
+}
+
+.bac-img-container {
+  position: relative;
+  width: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.1);
 }
-.bac-img{
-width: 80%;
-height: 80%;
-border-radius: 10px;
+
+.bac-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 }
-@media screen and (max-width: 772px) {
-  .bac-img{
-    width: 90%;
-    height: 70%;
-    border-radius: 10px;
-    }
-}
-@media screen and (max-width: 548px) {
-  .bac-img{
-    height: 60%;
-    border-radius: 10px;
-    }
-}
-@media screen and (max-width: 482px) {
-  .bac-img{
-    height: 50%;
-    border-radius: 10px;
-    }
-}
+
+/* Description box centered and constrained */
 .description {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.648);
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
   color: rgb(3, 141, 255);
-  padding: 10px;
-  border-radius: 5px;
-  width: 60%;
-  height: 200px;
-  font-size: 2rem;
-  font-weight: bold;
+  padding: 15px 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  font-size: 1.5rem;
+  font-weight: 600;
   text-align: center;
+  word-wrap: break-word;
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-100% * 2));
-  }
-}
-
-.delete_icon {
+/* Vertical Ellipsis Menu Styles */
+.menu_container {
   position: absolute;
-  color: rgb(255, 255, 255);
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+}
+
+.menu_icon {
   font-size: 24px;
-  cursor: pointer;
-   text-align: center;
-  background-color: rgb(69, 67, 67);
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4px; 
+  cursor: pointer;
 }
-/* Assuming the animation is on .slide or .slider */
+
+.menu_dropdown {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
+  font-size: 14px;
+  z-index: 30;
+}
+
+.menu_dropdown div {
+  cursor: pointer;
+}
+
+.menu_dropdown div:hover {
+  color: red;
+}
+
+/* Optional: Stop animation while interacting */
 .slider.paused,
 .slide.paused {
   animation-play-state: paused !important;
   transition: none !important;
 }
 
-/* Optional: if you're using transform or a transition-based slider */
-.slider.paused *,
-.slide.paused * {
-  pointer-events: auto;
+/* Responsive Adjustments */
+
+/* Medium screens: tablets and small desktops */
+@media screen and (max-width: 992px) {
+  .bac-img-container {
+    height: 500px;
+    width: 100%;
+  }
+
+  .description {
+    font-size: 1.2rem;
+  }
+}
+
+/* Small screens: mobile devices */
+@media screen and (max-width: 600px) {
+  .bac-img-container {
+    width: 90%;
+    height: 300px;
+  }
+
+  .bac-img {
+    object-fit: contain; /* Ensures full image visibility on small screens */
+  }
+
+  .description {
+    width: 95%;
+    font-size: 1rem;
+  }
+
+  .menu_icon {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+}
+
+/* Pause scrolling when hovering over slider */
+.services-container:hover .slider {
+  animation-play-state: paused !important;
 }

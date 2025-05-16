@@ -1,69 +1,73 @@
 import React, { useState, useEffect } from "react";
 import "../styles/services.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-const ServicesPage = ({ userRole,userDetails }) => {
-  const [announcements, setAnnouncements] = useState([]);
+const ServicesPage = ({ userRole, userDetails }) => {
+  const [achievements, setAchievements] = useState([]);
+  const [menuOpenIndex, setMenuOpenIndex] = useState(null);
+
   useEffect(() => {
-    const fetchAnnouncements = async () => {
+    const fetchAchievementss = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/auth/getAchievements"
-        );
+        const response = await axios.get("http://localhost:3001/auth/getAchievements");
         if (response.data) {
-          // Correct the image paths to use forward slashes
-          const formattedAnnouncements = response.data.map((announcement) => ({
-            ...announcement,
-            image: announcement.image.replace(/\\/g, "/"),
+          const formattedAchievements = response.data.map((achievement) => ({
+            ...achievement,
+            image: achievement.image.replace(/\\/g, "/"),
           }));
-          console.log("colle", formattedAnnouncements); // Log the formatted response data
-          setAnnouncements(formattedAnnouncements);
+          setAchievements(formattedAchievements);
         }
       } catch (error) {
         console.error("Error fetching announcements:", error);
       }
     };
 
-    fetchAnnouncements();
+    fetchAchievementss();
   }, []);
 
   const handleDelete = async (index) => {
     try {
-      await axios.delete("http://localhost:3001/auth/deleteAnnouncement", {
-        data: { index },
+      const achievement = achievements[index];
+      await axios.delete("http://localhost:3001/auth/deleteAchievement", {
+        data: { id: achievement._id },
       });
-      setAnnouncements((prevAnnouncements) =>
-        prevAnnouncements.filter((announcement) => announcement._id !== index)
-      );
+      setAchievements(achievements.filter((_, i) => i !== index));
+      setMenuOpenIndex(null); // close menu after delete
     } catch (error) {
-      console.error("Error deleting announcement:", error);
+      console.error("There was an error deleting the achivements!", error);
     }
   };
-
   return (
     <section className="services">
       <div className="services-container">
         <div className="slider">
-          {announcements.map((announcement) => (
-            <div key={announcement._id} className="slide">
+          {achievements.map((achievement, index) => (
+            <div key={achievement._id} className="slide">
               <div className="bac-img-container">
                 <img
-                  src={announcement.image}
-                  alt="profile-image"
+                  src={achievement.image}
+                  alt="profile"
                   className="bac-img"
                 />
-                <div className="description">{announcement.description}</div>
-                {userRole === "user" &&
-                  userDetails.position === "media team" && (
+                <div className="description">{achievement.description}</div>
+
+                {userRole === "user" && userDetails.position === "media team" && (
+                  <div className="menu_container">
                     <div
-                      className="delete_icon"
-                      onClick={() => handleDelete(announcement._id)}
+                      className="menu_icon"
+                      onClick={() =>
+                        setMenuOpenIndex(menuOpenIndex === index ? null : index)
+                      }
                     >
-                      <FontAwesomeIcon icon={faTrash} />
+                      &#8942;
                     </div>
-                  )}
+                    {menuOpenIndex === index && (
+                      <div className="menu_dropdown">
+                        <div onClick={() => handleDelete(index)}>Delete</div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           ))}

@@ -87,34 +87,60 @@
   border-radius: 10px;
   box-shadow: 0 0 5px black;
   flex: 0 0 auto;
-display: flex;
-justify-content: center;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
 .announcement_img_box img {
   width: 100%;
   height: 85%;
-  border-radius:0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
 }
 
-.delete_icon_2 {
-  color: rgb(255, 255, 255);
-  font-size: 24px;
+/* Menu styles */
+.menu_container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+.menu_icon {
   cursor: pointer;
-  text-align: center;
-  background-color: rgb(245, 0, 0);
-  height: 15%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 42%;
-  width: 100%;
-  border-radius: 10px 10px 0 0;
+  font-size: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  padding: 2px 6px;
 }
 
-/* Media Queries */
+.menu_dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 3;
+  min-width: 80px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu_dropdown div {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: red;
+  font-weight: bold;
+}
+
+.menu_dropdown div:hover {
+  background-color: #f0f0f0;
+}
+
+/* Responsive */
 @media screen and (max-width: 800px) {
   .ann_img {
     width: 80%;
