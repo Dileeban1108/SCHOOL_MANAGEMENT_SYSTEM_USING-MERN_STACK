@@ -7,14 +7,14 @@ import axios from "axios";
 import moment from "moment";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const PrimaryPage = () => {
+const SecondaryPage = () => {
   const [fileData, setFileData] = useState(null);
 
   useEffect(() => {
     const fetchApplication = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/auth/getApplication/primary"
+          "http://localhost:3001/auth/getApplication/secondary"
         );
         setFileData(response.data);
       } catch (error) {
@@ -24,16 +24,18 @@ const PrimaryPage = () => {
 
     fetchApplication();
   }, []);
+
   const handleDelete = async () => {
     try {
-      await axios.delete("http://localhost:3001/auth/deleteApplication/primary");
+      await axios.delete("http://localhost:3001/auth/deleteApplication/secondary");
       setFileData(null);
-              toast.success("Application deleted successfully.");
+      toast.success("Application deleted successfully.");
     } catch (error) {
       console.error("Error deleting application:", error);
       toast.error("Failed to delete application.");
     }
   };
+
   const isDeadlineOver = fileData
     ? moment().isAfter(moment(fileData.deadLine), "day")
     : false;
@@ -41,11 +43,10 @@ const PrimaryPage = () => {
   return (
     <div className="application_container">
       <NavBar />
-            <ToastContainer position="top-right" />
-      
+      <ToastContainer position="top-right" />
       <div className="application">
         <div className="application_header">
-          Application for Primary Enrollment
+          Application for Secondary Enrollment
         </div>
 
         {fileData ? (
@@ -56,7 +57,7 @@ const PrimaryPage = () => {
               </div>
             ) : (
               <>
-              <div
+                <div
                   className="delete-button"
                   onClick={handleDelete}
                   title="Delete Application"
@@ -66,24 +67,21 @@ const PrimaryPage = () => {
                     style={{ color: "red", cursor: "pointer" }}
                   />
                 </div>
-                <a
-                href={fileData.file}
-                download
-                className="app_image"
-              >
-                <FontAwesomeIcon icon={faDownload} />
-                <h6>(click here to download)</h6>
-                <div className="due_date">
-                  Due date: {moment(fileData.deadLine).format("DD/MMM/YYYY")}
-                  <br />
-                  <span className="des">
-                    {fileData.description ||
-                      "Fill the form and hand over to school office on or before the deadline"}
-                  </span>
-                </div>
-              </a>
-                </>
-              
+                <a href={fileData.file} download className="app_image">
+                  <FontAwesomeIcon icon={faDownload} />
+                  <h6>(click here to download)</h6>
+                  <div className="due_date">
+                    Due date: {moment(fileData.deadLine).format("DD/MMM/YYYY")}
+                    <br />
+                    <span className="des">
+                      {fileData.description ||
+                        "Fill the form and hand over to school office on or before the deadline"}
+                    </span>
+                  </div>
+                </a>
+                {/* Delete Button */}
+
+              </>
             )}
           </div>
         ) : (
@@ -94,4 +92,4 @@ const PrimaryPage = () => {
   );
 };
 
-export default PrimaryPage;
+export default SecondaryPage;

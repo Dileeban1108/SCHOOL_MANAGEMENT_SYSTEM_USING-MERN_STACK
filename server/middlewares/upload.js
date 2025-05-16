@@ -1,33 +1,51 @@
-// routes/upload.js
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
-
+const express = require("express");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const router = express.Router();
 
-// Multer storage configuration
+// Ensure upload folder exists
+const uploadPath = path.join(__dirname, '../../client/public/uploads/');
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
+}
+
+// Storage config
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '../../client/public/uploads/'));
+  destination: (req, file, cb) => {
+    cb(null, uploadPath);
   },
-  filename: function (req, file, cb) {
-    const name = Date.now() + '-' + file.originalname;
-    cb(null, name);
-  }
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + "-" + file.originalname;
+    cb(null, uniqueName);
+  },
 });
 
-const upload = multer({ storage: storage });
-
-// POST endpoint for uploading a single file
-router.post('/', upload.single('image'), (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).send('No file uploaded.');
-    }
-    res.status(200).json({ filePath: `/uploads/${req.file.filename}` });
-  } catch (err) {
-    res.status(500).send('Error uploading file.');
+// Unified file filter for PDF + images
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = [
+    "application/pdf",
+    "image/jpeg",
+    "image/png",
+    "image/jpg",
+  ];
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only PDF or image files are allowed"), false);
   }
+};
+
+const upload = multer({ storage, fileFilter });
+
+// POST /upload
+router.post("/", upload.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded." });
+  }
+
+  const filePath = `/uploads/${req.file.filename}`;
+  return res.status(200).json({ filePath });
 });
 
 module.exports = router;

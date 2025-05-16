@@ -99,9 +99,9 @@ const NavBar = ({
   const handleAddAnnouncementClick = () => {
     setShowAnnouncementModal(true);
   };
-const handleAddApplicationsClick = () => {
-      setShowApplicationModal(true);
-}
+  const handleAddApplicationsClick = () => {
+    setShowApplicationModal(true);
+  }
   const handlePrimaryModalClick = () => {
     setShowPrimaryStaffModal(true);
   };
@@ -132,7 +132,7 @@ const handleAddApplicationsClick = () => {
   const handleCloseAnnouncementModal = () => {
     setShowAnnouncementModal(false);
   };
-  const handleCloseApplicationsClick=()=>{
+  const handleCloseApplicationsClick = () => {
     setShowApplicationModal(false)
   }
 
@@ -191,7 +191,7 @@ const handleAddApplicationsClick = () => {
           </div>
         </div>
         <div className="nav-container">
-          {/* {userRole === "user" && ( */}
+          {userRole === "user" && (
             <div className="profile-icon" onClick={toggleProfile}>
               <img
                 src={userDetails.image || user}
@@ -225,9 +225,11 @@ const handleAddApplicationsClick = () => {
                       </p>
                     </>
                   )}
-                  <p onClick={handleAddApplicationsClick}>
-                        Add Applications <FontAwesomeIcon icon={faPlus} />
-                      </p>
+                  {userDetails.position === "  office staff" && (
+                    <p onClick={handleAddApplicationsClick}>
+                      Add Applications <FontAwesomeIcon icon={faPlus} />
+                    </p>
+                  )}
                   <p onClick={handleLogout}>
                     Logout
                     <FontAwesomeIcon icon={faSignOutAlt} />
@@ -235,7 +237,7 @@ const handleAddApplicationsClick = () => {
                 </div>
               )}
             </div>
-          {/* )} */}
+          )}
           <div className="logo" onClick={handleClick}>
             <img src={image} alt="logo" />
           </div>
@@ -317,22 +319,14 @@ const handleAddApplicationsClick = () => {
                     to="/primary_application"
                     style={{ textDecoration: "none" }}
                   >
-                    Grade 1 <FontAwesomeIcon icon={faChevronRight} />
+                    Primary <FontAwesomeIcon icon={faChevronRight} />
                     <div className="submenu"></div>
                   </RouterLink>
                   <RouterLink
-                    to="/secondary1_application"
+                    to="/secondary_application"
                     style={{ textDecoration: "none" }}
                   >
-                    Grade 6 <FontAwesomeIcon icon={faChevronRight} />
-                    <div className="submenu"></div>
-                  </RouterLink>
-                  <RouterLink
-                    to="/secondary2_application"
-                    style={{ textDecoration: "none" }}
-                  >
-                    Advanced Level
-                    <FontAwesomeIcon icon={faChevronRight} />
+                    Secondary <FontAwesomeIcon icon={faChevronRight} />
                     <div className="submenu"></div>
                   </RouterLink>
                 </div>
@@ -415,8 +409,8 @@ const handleAddApplicationsClick = () => {
         onClose={handleCloseAnnouncementModal}
       />
       <AddApplicationForm
-      show={showApplicationModal}
-      onClose={handleCloseApplicationsClick}
+        show={showApplicationModal}
+        onClose={handleCloseApplicationsClick}
       />
       <AchievementModal
         show={showAchievementModal}

@@ -6,6 +6,7 @@ router.post("/login", authController.handleLogin);
 router.post("/logDate", authController.handleLogDate);
 
 router.post("/sendMessage", authController.handleSendMessage);
+router.post("/addApplication", authController.handleAddApplication);
 
 router.post("/createAnnouncement", authController.handleNewAnnouncement);
 router.post("/createEvent", authController.handleNewEvent);
@@ -13,6 +14,7 @@ router.post("/createAchievement", authController.handleNewAchievement);
 router.post("/createStudent", authController.handleNewStudent);
 router.get("/getUser/:email", authController.getUserByEmail);
 router.get("/getUser/:email", authController.getUserByEmail);
+router.get("/getApplication/:fileType", authController.getApplication);
 
 router.get("/getMessagesByRecieverEmail/:recieverEmail", authController.getMessagesByRecieverEmail);
 router.get("/getMessagesBySenderEmail/:senderEmail", authController.getMessagesBySenderEmail);
@@ -33,5 +35,6 @@ router.delete("/deleteEvent", authController.deleteEvent);
 router.delete("/deleteAchievement", authController.deleteAchievement);
 router.delete("/deleteAnnouncement", authController.deleteAnnouncement);
 router.delete("/deleteStudent/:id", authController.deleteStudent);
+router.delete("/deleteApplication/:fileType", authController.deleteApplication);
 
 module.exports = router;

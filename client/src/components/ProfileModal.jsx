@@ -123,7 +123,7 @@ const ProfileModal = ({ show, onClose, userDetails }) => {
       // Upload image if profileImage is not null
       if (profileImage) {
         const formData = new FormData();
-        formData.append("image", profileImage);
+formData.append("file", profileImage); // ✅
         const uploadResponse = await axios.post(
           "http://localhost:3001/upload",
           formData

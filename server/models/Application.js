@@ -9,7 +9,7 @@ const applicationSchema = new Schema(
     file: {
       type: String,
     },
-    type:{
+    fileType:{
         type:String
     }
   },

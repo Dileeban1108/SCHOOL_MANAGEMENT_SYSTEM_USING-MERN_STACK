@@ -7,6 +7,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const TimeLog = require("../models/TimeLog")
 const Message = require("../models/Message")
+const Application = require('../models/Application');
+
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -254,6 +256,24 @@ const deleteStudent = async (req, res) => {
     res.status(500).json({ error: "Failed to delete student" });
   }
 };
+const deleteApplication = async (req, res) => {
+  try {
+    const { fileType } = req.params;
+
+    // Assuming you're deleting based on a field like 'type'
+    const result = await Application.deleteMany({ fileType: fileType });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: "No applications found with that file type" });
+    }
+
+    res.status(200).json({ message: "Deleted successfully", deletedCount: result.deletedCount });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete applications" });
+  }
+};
+
 
 const getUsers = async (req, res) => {
   try {
@@ -283,6 +303,18 @@ const getUserByEmail = async (req, res) => {
     const query = { email, ...additionalFilters };
 
     const result = await User.findOne(query);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch" });
+  }
+};
+const getApplication = async (req, res) => {
+  try {
+    const { fileType } = req.params;
+    const query = { fileType };
+
+    const result = await Application.findOne(query);
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
@@ -342,6 +374,20 @@ const handleSendMessage = async (req, res) => {
       recieverEmail,
       message,
       senderName,
+    });
+
+    res.status(201).json({ success: "Successfully Created" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+const handleAddApplication = async (req, res) => {
+  const { deadLine, fileType, file} = req.body;
+  try {
+    await Application.create({
+      deadLine,
+      fileType,
+      file,
     });
 
     res.status(201).json({ success: "Successfully Created" });
@@ -432,6 +478,9 @@ const getMessagesBySenderEmail = async (req, res) => {
   }
 };
 module.exports = {
+  deleteApplication,
+  getApplication,
+  handleAddApplication,
   handleSendMessage,
   getMessagesByRecieverEmail,
   getMessagesBySenderEmail,

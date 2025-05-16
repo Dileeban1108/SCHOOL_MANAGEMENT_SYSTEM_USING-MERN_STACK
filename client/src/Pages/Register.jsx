@@ -27,7 +27,8 @@ const Register = () => {
     "vice principal",
     "teacher",
     "sport coach",
-    "media team"
+    "media team",
+    "office staff"
   ];
   const sexes = ["Select Sex", "male", "female"];
   const grades = [
