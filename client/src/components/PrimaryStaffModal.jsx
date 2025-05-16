@@ -50,7 +50,7 @@ const PrimaryStaffModal = ({ show, onClose }) => {
         X
       </button>
       <div className="modal-content_s">
-      <h2 className="staff_header">Staff</h2>
+        <h2 className="staff_header">Staff</h2>
         <div className="searchinput">
           <input
             type="text"
@@ -70,14 +70,13 @@ const PrimaryStaffModal = ({ show, onClose }) => {
                 <img
                   src={user.image || userPlaceholderImage}
                   alt={user.username}
-                  className="user-image_2"
                 />
                 <div className="user-info_2">
                   <h2>
                     {greeting} {user.username}
                   </h2>
                   <p>{user.position}</p>
-                  <p style={{fontSize:".9rem"}}>{user.grade}</p>
+                  <p style={{ fontSize: ".9rem" }}>{user.grade}</p>
                   <p>{user.phone}</p>
                 </div>
               </div>

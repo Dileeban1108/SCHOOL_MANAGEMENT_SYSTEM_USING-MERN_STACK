@@ -99,8 +99,7 @@ const StudentModal = ({ show, onClose }) => {
         <div className="modal-content_st">
           <h2 className="staff_header">Students</h2>
           {userRole === "user" &&
-            (userDetails.position === "principal" ||
-              userDetails.position === "vice principal") && (
+            userDetails.position === "office staff" || userDetails.position === "principal" && (
               <div className="addstudents" onClick={handleAddStudentModalClick}>
                 Add Students <FontAwesomeIcon icon={faPlus} />
               </div>
@@ -130,13 +129,14 @@ const StudentModal = ({ show, onClose }) => {
           </div>
         </div>
       </div>
+      {userRole === "user" && userDetails.position === "office staff" || userDetails.position === "principal" && (
 
-      <ShowStudentModal
-        show={showStudentModal}
-        onClose={handleCloseStudentModal}
-        student={selectedStudent}
-        onDeleteStudent={handleDeleteStudent}
-      />
+        <ShowStudentModal
+          show={showStudentModal}
+          onClose={handleCloseStudentModal}
+          student={selectedStudent}
+          onDeleteStudent={handleDeleteStudent}
+        />)}
       <AddStudentModal
         show={showAddStudentModal}
         onClose={handleCloseAddStudentModal}

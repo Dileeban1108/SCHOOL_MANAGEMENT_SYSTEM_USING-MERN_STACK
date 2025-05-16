@@ -92,3 +92,15 @@ border-radius: 10px;
   align-items: center;
   padding: 4px; 
 }
+/* Assuming the animation is on .slide or .slider */
+.slider.paused,
+.slide.paused {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+/* Optional: if you're using transform or a transition-based slider */
+.slider.paused *,
+.slide.paused * {
+  pointer-events: auto;
+}

@@ -245,7 +245,7 @@ const NavBar = ({
             <FontAwesomeIcon icon={faBars} />
           </div>
           <ul className={`nav-links ${showMobileMenu ? "active" : ""}`} >
-            {userRole === "user" && (
+            {userRole === "user" &&  (
               <li>
                 <ScrollLink
                   style={{ textDecoration: "none" }}

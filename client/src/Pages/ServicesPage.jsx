@@ -56,8 +56,7 @@ const ServicesPage = ({ userRole,userDetails }) => {
                 />
                 <div className="description">{announcement.description}</div>
                 {userRole === "user" &&
-                  (userDetails.position === "principal" ||
-                    userDetails.position === "vice principal") && (
+                  userDetails.position === "media team" && (
                     <div
                       className="delete_icon"
                       onClick={() => handleDelete(announcement._id)}

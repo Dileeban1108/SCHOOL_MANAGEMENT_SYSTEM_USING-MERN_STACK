@@ -50,7 +50,7 @@ const MessageViewModal = ({ show, onClose, userDetails }) => {
                         className={activeTab === 'outbox' ? 'active' : ''}
                         onClick={() => setActiveTab('outbox')}
                     >
-                        Outbox
+                        Sent
                     </button>
                 </div>
 

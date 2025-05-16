@@ -13,7 +13,7 @@ const AddNewEventModal = ({ show, onClose, userDetails }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append("file", image);
     formData.append("description", description);
 
     try {
